@@ -112,7 +112,7 @@
     line-height: 1;
   }
   .site-header .subtitle {
-    font-family: "Comic Sans MS", "Trebuchet MS", cursive;
+    font-family: "Comic Sans MS", "Trebuchet MS", "Chalkboard SE", "Marker Felt", sans-serif;
     color: #fff;
     font-size: clamp(12px, 2.5vw, 20px);
     margin-top: 8px;
@@ -225,7 +225,7 @@
     border: 3px dashed #ff6600;
     padding: 15px;
     margin: 15px 0;
-    font-family: "Comic Sans MS", "Trebuchet MS", cursive;
+    font-family: "Comic Sans MS", "Trebuchet MS", "Chalkboard SE", "Marker Felt", sans-serif;
     font-size: 14px;
     position: relative;
   }
@@ -356,7 +356,7 @@
     content: " ALL-TIME RECORD!";
     font-size: 10px;
     color: #cc0000;
-    font-family: "Comic Sans MS", cursive;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Marker Felt", sans-serif;
     animation: blink 1s step-start infinite;
   }
   @keyframes blink {
@@ -410,7 +410,7 @@
     margin-bottom: 4px;
   }
   .player-card .player-aka {
-    font-family: "Comic Sans MS", cursive;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Marker Felt", sans-serif;
     color: #cc0000;
     font-size: 12px;
     font-style: italic;
@@ -530,7 +530,7 @@
   .construction-gif {
     margin-top: 10px;
     font-size: 14px;
-    font-family: "Comic Sans MS", cursive;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Marker Felt", sans-serif;
     color: #ffd700;
   }
 
@@ -587,6 +587,20 @@
     box-shadow: 2px 2px 0 #000;
   }
 
+  /* ============ BOUNCING BALLBALLS ============ */
+  .bouncing-ball {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    will-change: transform;
+  }
+  .bouncing-ball img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 600px) {
     .main-nav a { font-size: 11px; padding: 8px 8px; }
@@ -601,7 +615,7 @@
 <!-- ===== TOP MARQUEE ===== -->
 <div class="top-marquee">
   <span class="scroll-text">
-    * OFFICIAL BALLBALL HEADQUARTERS * ALL-TIME RECORD: 484 * ESTABLISHED CIRCA 2ND CENTURY BC * 605 E. MARKET STREET, INDIANAPOLIS * MANDATORY READING FOR ALL EMPLOYEES * RESPECT THE FALLEN BALLBALL * COMPANY BALLICY IN EFFECT * TINY TOES *
+    * OFFICIAL BALLBALL HEADQUARTERS * ALL-TIME RECORD: 484 * ESTABLISHED CIRCA 2ND CENTURY BC * 605 E. MARKET STREET, INDIANAPOLIS * MANDATORY READING FOR ALL PLAYERS * RESPECT THE FALLEN BALLBALL * COMPANY BALLICY IN EFFECT * TINY TOES *
   </span>
 </div>
 
@@ -633,7 +647,7 @@
   <div class="content-section">
     <div class="section-header">
       <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
-      Memorandum to All Employees
+      Memorandum to All Players
       <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
     </div>
     <div class="section-body">
@@ -652,16 +666,16 @@
       Part I: The Ancient Origins of BallBall
     </div>
     <div class="section-body">
-      <p>The sport of "Ball Ball" has a rich and fascinating history that dates back several centuries. It is a unique and exciting game that requires exceptional footwork, coordination, and teamwork.</p>
+      <p>The sport of "BallBall" has a rich and fascinating history that dates back several centuries. It is a unique and exciting game that requires exceptional footwork, coordination, and teamwork.</p>
 
       <div class="sub-header">Origins</div>
-      <p>The origins of Ball Ball can be traced back to ancient civilizations. It is believed that a precursor to the sport was played in ancient China during the Han dynasty around the <strong>2nd century BC</strong>. Early pioneers stood in a circle, using their feet to keep a ball made of woven materials or animal bladders in the air.</p>
+      <p>The origins of BallBall can be traced back to ancient civilizations. It is believed that a precursor to the sport was played in ancient China during the Han dynasty around the <strong>2nd century BC</strong>. Early pioneers stood in a circle, using their feet to keep a ball made of woven materials or animal bladders in the air.</p>
 
       <div class="sub-header">Spread and Evolution</div>
-      <p>As trade and exploration expanded, so did the popularity of the game. Ball Ball spread to different regions of Asia and Europe through trade routes and cultural exchanges.</p>
+      <p>As trade and exploration expanded, so did the popularity of the game. BallBall spread to different regions of Asia and Europe through trade routes and cultural exchanges.</p>
 
       <div class="sub-header">Formalization</div>
-      <p>In the late 19th century, Ball Ball gained recognition as a formalized sport. Rules and regulations were standardized, marking the beginning of the sport's modern era.</p>
+      <p>In the late 19th century, BallBall gained recognition as a formalized sport. Rules and regulations were standardized, marking the beginning of the sport's modern era.</p>
     </div>
   </div>
 
@@ -675,11 +689,11 @@
       <p>While the ancients used animal bladders, our modern arena required adaptation and highly specific sporting goods.</p>
 
       <div class="callout-box">
-        <strong>The Official BallBall:</strong> The regulation game is played with a <strong>10-inch, multi-colored rubber ball</strong> equipped with "fun grippers" (officially designated as the "Fun Gripper" ball by Saturnian 1 Sport).
+        <strong>The Official BallBall:</strong> The regulation game is played with a <a href="https://www.fun-gripper.com/store/Fun-Gripper®-Tie-Dye-10-Soccer-Ball-O-S-Perfect-for-Indoor-by-Saturnian-I-P-E-Supplier-p245493005" target="_blank" style="color:#ffd700;text-decoration:underline;"><strong>10-inch, multi-colored, non-threatening, rubber ball</strong></a> equipped with "fun grippers" (officially designated as the "Fun Gripper" ball by Saturnian 1 Sport).
       </div>
 
       <div class="sub-header">The Evolutionary Bridge: Hamper Ball (Bonus Round)</div>
-      <p>Before DKO, there was <strong>Hamper Ball</strong>. Played as a high-stakes bonus round, a large bin was placed in the center of the circle and the standard ball was swapped out for a larger <strong>16-inch variant</strong>. Once everyone in the circle registered a touch, the goal shifted to kicking the ball into the hamper. Each successful hamper sink renewed the round. The round only ended when the ball finally hit the ground. This thrilling variant directly paved the way for modern DKO.</p>
+      <p>Before DKO, there was <strong>Hamper Ball</strong>. Played as a high-stakes bonus round, a large bin was placed in the center of the circle and the standard ball was swapped out for a larger <strong>16-inch variant</strong>. Later a massive 24in & 36in ball was integrated for pleasure. Once everyone in the circle registered a touch, the goal shifted to kicking the ball into the hamper. Each successful hamper sink renewed the round. The round only ended when the ball finally hit the ground. This thrilling variant directly paved the way for modern DKO.</p>
     </div>
   </div>
 
@@ -694,7 +708,7 @@
 
       <div class="sub-header">The Rules of Engagement</div>
       <ol class="rule-list">
-        <li><strong>The Golden Rule:</strong> To score, a player must get the VERY LARGE 16-inch BallBall into the hamper using any body part except their hands and arms.</li>
+        <li><strong>The Golden Rule:</strong> To score, a player must get the BallBall into the hamper using any body part except their hands and arms.</li>
         <li><strong>The Knockout Mechanic:</strong> Players form a single-file line. Player 1 kicks. Slightly offset in time, Player 2 kicks. If Player 1 misses, they must frantically retrieve the ball and keep trying to score from wherever it lands, all while Player 2 is doing the exact same thing.</li>
         <li><strong>Elimination:</strong> If the person behind you in the starting order sinks the ball into the hamper before you do, you are eliminated. If you score first, you retrieve the ball, pass it to the next person in line, and hustle to the back to survive another round.</li>
       </ol>
@@ -702,11 +716,11 @@
       <div class="sub-header">Customs & Court Etiquette</div>
 
       <div class="callout-box">
-        <strong>Respect for the Fallen BallBall:</strong> When a rally dies, it is not officially required -- but it is <em>highly regarded</em> -- to drop to one knee out of respect for the fallen BallBall.
+        <strong>The Kneeling Statue:</strong> If a ball rolls entirely out of bounds and a player must run a significant distance to retrieve it for a "free kick" back into the circle, a sacred tradition takes hold. The remaining players must freeze in place, acting as kneeling statues. They must then attempt to receive the incoming free kick using only their knees or heads. While historically rarely successful, executing a Kneeling Statue reception is considered one of the highest honors in the sport.
       </div>
 
       <div class="callout-box">
-        <strong>The Kneeling Statue:</strong> If a ball rolls entirely out of bounds and a player must run a significant distance to retrieve it for a "free kick" back into the circle, a sacred tradition takes hold. The remaining players must freeze in place, acting as kneeling statues. They must then attempt to receive the incoming free kick using only their knees or heads. While historically rarely successful, executing a Kneeling Statue reception is considered one of the highest honors in the sport.
+        <strong>Pro Tip:</strong> Using the sound-dampening production curtain was a strategy often deployed to get the ball near the hamper if you couldn't confidently sink it on the first try.
       </div>
     </div>
   </div>
@@ -733,6 +747,18 @@
           <tr>
             <td class="term-name">Tiny Toes</td>
             <td>Invented by <strong>Jason Drake</strong>. A tactic used to rack up a lot of kicks very quickly. Conversely, it is shouted aggressively by veterans to remind the group to settle down and execute small, controlled touches.</td>
+          </tr>
+          <tr>
+            <td class="term-name">The Roamer</td>
+            <td>A specialized support role. The Roamer hovers around the action OUTSIDE of the circle, acting as a safety net to collect and return stray kicks before they can collide with expensive studio equipment.</td>
+          </tr>
+          <tr>
+            <td class="term-name">The Record Keeper</td>
+            <td>A player who utilizes a specialized counting tool (analog or digital) to ensure records are kept as accurately as possible during the heat of a high-count rally.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Soundtrack DJ</td>
+            <td>A critical atmospheric role. This involves a player who monitors the "vibe" and flow of the session; if a song is deemed non-optimal for the current rally, the DJ is authorized to call out to the smart device overlord to "skip track."</td>
           </tr>
         </tbody>
       </table>
@@ -858,7 +884,7 @@
       <div class="warning-box">
         MANDATORY PROTOCOL -- ALL PERSONNEL MUST COMPLY
       </div>
-      <p>Before a match can officially conclude and employees are permitted to return to their actual work, the players must form a circle. <strong>Every single person</strong> must register one solid touch (feet/body only) in a single, continuous rally. If the ball drops, the attempt is void, and the rally must start over.</p>
+      <p>Before a match can officially conclude and players are permitted to return to their actual work, the players must form a circle. <strong>Every single person</strong> must register one solid touch (feet/body only) in a single, continuous rally. If the ball drops, the attempt is void, and the rally must start over.</p>
       <p>This historically serves as a highly effective loophole to stretch "one last round" into a <span class="highlight">15-minute delay</span>.</p>
     </div>
   </div>
@@ -891,7 +917,7 @@
 
       <div class="golden-era-banner">
         &#9733; The Golden Era &#9733;<br>
-        <span style="font-size:0.7em; font-family: 'Comic Sans MS', cursive;">The astronomical leap from 30 to 484 between late 2018 and early 2019</span>
+        <span style="font-size:0.7em; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;">The astronomical leap from 30 to 484 between late 2018 and early 2019</span>
       </div>
 
       <div class="sub-header">Hamper (Hamperton) Records</div>
@@ -921,178 +947,178 @@
       <div class="sub-header">The Legends (Complete Archives)</div>
       <div class="player-grid">
         <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/JasonDrake-GOAT.png" alt="Jason Drake" onerror="this.style.display='none';this.parentElement.textContent='JD'"></div>
-          <div class="player-name">Jason Drake</div>
-          <div class="player-aka">"OG"</div>
-          <div class="player-desc">All-time individual record holder and inventor of "Tiny Toes."</div>
-        </div>
-        <div class="player-card legend">
           <div class="player-icon"><img src="BallBall Roster/JeremyEverywhereAlbert.png" alt="Jeremy Albert" onerror="this.style.display='none';this.parentElement.textContent='JA'"></div>
           <div class="player-name">Jeremy Albert</div>
           <div class="player-aka">"Everywhere"</div>
-          <div class="player-desc">The reigning St. Nogustine. 30 consecutive nogs.</div>
+          <div class="player-desc">The reigning St. Nogustine (30 nogs). Known for his omnipresence in the circle.</div>
         </div>
         <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/FeliciaTheRecordKeeperLahti-Fee.png" alt="Felicia Lahti" onerror="this.style.display='none';this.parentElement.textContent='FL'"></div>
-          <div class="player-name">Felicia Lahti</div>
-          <div class="player-aka">"Fee" / "The Record Keeper"</div>
-          <div class="player-desc">Post Production Supervisor. Pioneer of the "Hand of God."</div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/DeanMosier-DSD.jpeg" alt="Dean Mosier" onerror="this.style.display='none';this.parentElement.textContent='DM'"></div>
-          <div class="player-name">Dean Mosier</div>
-          <div class="player-aka">"DSD"</div>
-          <div class="player-desc">Lead Animator. The fastest kick in the west.</div>
+          <div class="player-icon"><img src="BallBall Roster/JacobAtwood.png" alt="Jacob Atwood" onerror="this.style.display='none';this.parentElement.textContent='JA'"></div>
+          <div class="player-name">Jacob Atwood</div>
+          <div class="player-aka">"The Archer"</div>
+          <div class="player-desc">Rock solid; the person you want the ball to go to when the rally is approaching the 400s.</div>
         </div>
         <div class="player-card legend">
           <div class="player-icon"><img src="BallBall Roster/DirtyKurtyBowersock.png" alt="Kurtis Bowersock" onerror="this.style.display='none';this.parentElement.textContent='KB'"></div>
           <div class="player-name">Kurtis Bowersock</div>
           <div class="player-aka">"Dirty Kurty"</div>
-          <div class="player-desc">Terrifyingly calm while flying toward a $50,000 camera.</div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/Ryder.png" alt="Ryder Harmon" onerror="this.style.display='none';this.parentElement.textContent='RH'"></div>
-          <div class="player-name">Ryder Harmon</div>
-          <div class="player-aka">"I Go"</div>
-          <div class="player-desc">Plays in the tightest jeans and highly inappropriate pointy dress shoes.</div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/LoriLudwig.png" alt="Lori Ludwig" onerror="this.style.display='none';this.parentElement.textContent='LL'"></div>
-          <div class="player-name">Lori Ludwig</div>
-          <div class="player-aka"></div>
-          <div class="player-desc">Top-tier recruit from Design. Seasoned soccer star turned elite BallBaller.</div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/MattyMcMahon-PaceRivers.png" alt="Matty McMahon" onerror="this.style.display='none';this.parentElement.textContent='MM'"></div>
-          <div class="player-name">Matty McMahon</div>
-          <div class="player-aka">"Pace Rivers"</div>
-          <div class="player-desc">Namesake of the "March of Dimes."</div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/BoTheStingrayDietrick.png" alt="Bo Dietrick" onerror="this.style.display='none';this.parentElement.textContent='BD'"></div>
-          <div class="player-name">Bo Dietrick</div>
-          <div class="player-aka">"The Stingray"</div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/CarlingLeapOfFaith Dannoui.png" alt="Carling Dannaoui" onerror="this.style.display='none';this.parentElement.textContent='CD'"></div>
-          <div class="player-name">Carling Dannaoui</div>
-          <div class="player-aka">"Leap of Faith"</div>
-          <div class="player-desc"></div>
+          <div class="player-desc">Known to showcase a terrifyingly calm demeanor while flying toward a $50,000 camera on sticks to save a kick.</div>
         </div>
         <div class="player-card legend">
           <div class="player-icon"><img src="BallBall Roster/AndyChoka-Dr.Choka.png" alt="Andy Choka" onerror="this.style.display='none';this.parentElement.textContent='AC'"></div>
           <div class="player-name">Andy Choka</div>
           <div class="player-aka">"Dr. Choka"</div>
-          <div class="player-desc"></div>
+          <div class="player-desc">The official "Projector Protector." He ensures the backboard stays mounted while delivering clinical touches.</div>
         </div>
         <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/JustinJuiceZuraski.png" alt="Justin Zurawski" onerror="this.style.display='none';this.parentElement.textContent='JZ'"></div>
-          <div class="player-name">Justin Zurawski</div>
-          <div class="player-aka">"Juice"</div>
-          <div class="player-desc"></div>
+          <div class="player-icon"><img src="BallBall Roster/ShaCollier.png" alt="Sha Collier" onerror="this.style.display='none';this.parentElement.textContent='SC'"></div>
+          <div class="player-name">Sha Collier</div>
+          <div class="player-aka">"The Shot-Collier"</div>
+          <div class="player-desc">Confident leadership; her word on "Company Ballicy" is final, legally binding, and absolute.</div>
         </div>
         <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/BenPonyBoyPoenisch.png" alt="Benjamin Poenisch" onerror="this.style.display='none';this.parentElement.textContent='BP'"></div>
-          <div class="player-name">Benjamin Poenisch</div>
-          <div class="player-aka">"Pony Boy"</div>
-          <div class="player-desc"></div>
+          <div class="player-icon"><img src="BallBall Roster/ZacCoopCooper.png" alt="Zac Cooper" onerror="this.style.display='none';this.parentElement.textContent='ZC'"></div>
+          <div class="player-name">Zac Cooper</div>
+          <div class="player-aka">"All-Time Nip"</div>
+          <div class="player-desc">The most strategically positioned player in history; the center point of any successful session.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/CarlingLeapOfFaith Dannoui.png" alt="Carling Dannaoui" onerror="this.style.display='none';this.parentElement.textContent='CD'"></div>
+          <div class="player-name">Carling Dannaoui</div>
+          <div class="player-aka">"Leap of Faith"</div>
+          <div class="player-desc">Famous for her complete disregard for gravity and furniture when a rally is on the line.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/BoTheStingrayDietrick.png" alt="Bo Dietrick" onerror="this.style.display='none';this.parentElement.textContent='BD'"></div>
+          <div class="player-name">Bo Dietrick</div>
+          <div class="player-aka">"The Stingray"</div>
+          <div class="player-desc">Glides across the studio floor with silent precision, striking with "barbed" accuracy just before the ball hits the floor.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JasonDrake-GOAT.png" alt="Jason Drake" onerror="this.style.display='none';this.parentElement.textContent='JD'"></div>
+          <div class="player-name">Jason Drake</div>
+          <div class="player-aka">"The GOAT" / "OG"</div>
+          <div class="player-desc">All-time individual record holder and inventor of the "Tiny Toes" maneuver.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JoshGaal.png" alt="Josh Gaal" onerror="this.style.display='none';this.parentElement.textContent='JG'"></div>
+          <div class="player-name">Josh Gaal</div>
+          <div class="player-aka">"Much Billable"</div>
+          <div class="player-desc">A Producer who treated every kick with the same intensity as a client deadline.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/Ryder.png" alt="Ryder Harmon" onerror="this.style.display='none';this.parentElement.textContent='RH'"></div>
+          <div class="player-name">Ryder Harmon</div>
+          <div class="player-aka">"I Go"</div>
+          <div class="player-desc">Legendary for playing in the tightest jeans known to man and highly inappropriate pointy dress shoes.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/LexiOnTheMoveHiland.png" alt="Lexi Hiland" onerror="this.style.display='none';this.parentElement.textContent='LH'"></div>
+          <div class="player-name">Lexi Hiland</div>
+          <div class="player-aka">"The Slap"</div>
+          <div class="player-desc">Possesses the fastest reflexes in the Studio; if the ball is falling, she has already addressed it.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/FeliciaTheRecordKeeperLahti-Fee.png" alt="Felicia Lahti" onerror="this.style.display='none';this.parentElement.textContent='FL'"></div>
+          <div class="player-name">Felicia Lahti</div>
+          <div class="player-aka">"Fee" / "The Record Keeper"</div>
+          <div class="player-desc">Seasoned Post Production Supervisor and pioneer of the "Hand of God."</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/Blake.png" alt="Blake Lewis" onerror="this.style.display='none';this.parentElement.textContent='BL'"></div>
+          <div class="player-name">Blake Lewis</div>
+          <div class="player-aka">"Blue"</div>
+          <div class="player-desc">A cornerstone of the Studio Arena and essential architect of the game's culture.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/TaylorLucas.png" alt="Taylor Lucas" onerror="this.style.display='none';this.parentElement.textContent='TL'"></div>
+          <div class="player-name">Taylor Lucas</div>
+          <div class="player-aka">"The Shadow"</div>
+          <div class="player-desc">Moves so quietly you don't realize he saved the ball until it's already back in the air.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/LoriLudwig.png" alt="Lori Ludwig" onerror="this.style.display='none';this.parentElement.textContent='LL'"></div>
+          <div class="player-name">Lori Ludwig</div>
+          <div class="player-aka">"The Ringer"</div>
+          <div class="player-desc">A recruit from the outer circle of Design; a seasoned soccer star turned BallBall powerhouse.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/MattyMcMahon-PaceRivers.png" alt="Matty McMahon" onerror="this.style.display='none';this.parentElement.textContent='MM'"></div>
+          <div class="player-name">Matty McMahon</div>
+          <div class="player-aka">"Pace Rivers"</div>
+          <div class="player-desc">Namesake of the "March of Dimes" (10+ rapid knee hits).</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/MaddyMontoya.png" alt="Maddy Montoya" onerror="this.style.display='none';this.parentElement.textContent='MM'"></div>
+          <div class="player-name">Maddy Montoya</div>
+          <div class="player-aka">"The Quiet Maverick"</div>
+          <div class="player-desc">Known for her unmatched ability to ball while maintaining a humble, "business as usual" demeanor.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/DeanMosier-DSD.jpeg" alt="Dean Mosier" onerror="this.style.display='none';this.parentElement.textContent='DM'"></div>
+          <div class="player-name">Dean Mosier</div>
+          <div class="player-aka">"DSD"</div>
+          <div class="player-desc">Lead Animator. Watch yourself around the fastest kick in the (mid)west.</div>
         </div>
         <div class="player-card legend">
           <div class="player-icon"><img src="BallBall Roster/NickTheBodyPasotti.png" alt="Nick Pasotti" onerror="this.style.display='none';this.parentElement.textContent='NP'"></div>
           <div class="player-name">Nick Pasotti</div>
           <div class="player-aka">"The Body"</div>
-          <div class="player-desc"></div>
+          <div class="player-desc">The primary physical enforcer of the circle. A marvel of athletic presence who often acts as a human shield for the studio equipment.</div>
         </div>
         <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/ErinShales.png" alt="Erin Shales" onerror="this.style.display='none';this.parentElement.textContent='ES'"></div>
-          <div class="player-name">Erin Shales</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/ZacCoopCooper.png" alt="Zac Cooper" onerror="this.style.display='none';this.parentElement.textContent='ZC'"></div>
-          <div class="player-name">Zac Cooper</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/Blake.png" alt="Blake Lewis" onerror="this.style.display='none';this.parentElement.textContent='BL'"></div>
-          <div class="player-name">Blake Lewis</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/GloriaWitham.png" alt="Gloria Witham" onerror="this.style.display='none';this.parentElement.textContent='GW'"></div>
-          <div class="player-name">Gloria Witham</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
+          <div class="player-icon"><img src="BallBall Roster/BenPonyBoyPoenisch.png" alt="Benjamin Poenisch" onerror="this.style.display='none';this.parentElement.textContent='BP'"></div>
+          <div class="player-name">Benjamin Poenisch</div>
+          <div class="player-aka">"Pony Boy"</div>
+          <div class="player-desc">A historical enthusiast who loved him some hamper during the early days of Hamperton.</div>
         </div>
         <div class="player-card legend">
           <div class="player-icon"><img src="BallBall Roster/BrianPuffDaddyPuffer.png" alt="Brian Puffer" onerror="this.style.display='none';this.parentElement.textContent='BP'"></div>
           <div class="player-name">Brian Puffer</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/TaylorLucas.png" alt="Taylor Lucas" onerror="this.style.display='none';this.parentElement.textContent='TL'"></div>
-          <div class="player-name">Taylor Lucas</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/JoshGaal.png" alt="Josh Gaal" onerror="this.style.display='none';this.parentElement.textContent='JG'"></div>
-          <div class="player-name">Josh Gaal</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/MaddyMontoya.png" alt="Maddy Montoya" onerror="this.style.display='none';this.parentElement.textContent='MM'"></div>
-          <div class="player-name">Maddy Montoya</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/JoeySimmons.png" alt="Joey Simmons" onerror="this.style.display='none';this.parentElement.textContent='JS'"></div>
-          <div class="player-name">Joey Simmons</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/JacobAtwood.png" alt="Jacob Atwood" onerror="this.style.display='none';this.parentElement.textContent='JA'"></div>
-          <div class="player-name">Jacob Atwood</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/ShaCollier.png" alt="Sha Collier" onerror="this.style.display='none';this.parentElement.textContent='SC'"></div>
-          <div class="player-name">Sha Collier</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/JakeHowDidThatGoBackwardsThomas.png" alt="Jake Thomas" onerror="this.style.display='none';this.parentElement.textContent='JT'"></div>
-          <div class="player-name">Jake Thomas</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
-        </div>
-        <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/LukeTheBadboyTate.png" alt="Luke Tate" onerror="this.style.display='none';this.parentElement.textContent='LT'"></div>
-          <div class="player-name">Luke Tate</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
+          <div class="player-aka">"DJ Puff Daddy"</div>
+          <div class="player-desc">Essential architect of the official BallBall soundtrack (even the songs we don't like).</div>
         </div>
         <div class="player-card legend">
           <div class="player-icon"><img src="BallBall Roster/JD-TheCritic.png" alt="JD Schuyler" onerror="this.style.display='none';this.parentElement.textContent='JD'"></div>
           <div class="player-name">JD Schuyler</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
+          <div class="player-aka">"The Director"</div>
+          <div class="player-desc">Naturally coordinates the circle and calls out the strategy mid-kick to keep everyone in sync.</div>
         </div>
         <div class="player-card legend">
-          <div class="player-icon"><img src="BallBall Roster/LexiOnTheMoveHiland.png" alt="Lexi Hiland" onerror="this.style.display='none';this.parentElement.textContent='LH'"></div>
-          <div class="player-name">Lexi Hiland</div>
-          <div class="player-aka"></div>
-          <div class="player-desc"></div>
+          <div class="player-icon"><img src="BallBall Roster/ErinShales.png" alt="Erin Shales" onerror="this.style.display='none';this.parentElement.textContent='ES'"></div>
+          <div class="player-name">Erin Shales</div>
+          <div class="player-aka">"The Keyframe"</div>
+          <div class="player-desc">Reluctant but "all-in." An animator who will dive over a desk and apologize sweetly for the noise.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JoeySimmons.png" alt="Joey Simmons" onerror="this.style.display='none';this.parentElement.textContent='JS'"></div>
+          <div class="player-name">Joey Simmons</div>
+          <div class="player-aka">"The Jolt"</div>
+          <div class="player-desc">Brings an immediate, caffeinated burst of energy to the circle the moment he steps in.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/LukeTheBadboyTate.png" alt="Luke Tate" onerror="this.style.display='none';this.parentElement.textContent='LT'"></div>
+          <div class="player-name">Luke Tate</div>
+          <div class="player-aka">"The Longshot"</div>
+          <div class="player-desc">Famous for making impossible, cross-court kicks from the literal corners of the arena.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JakeHowDidThatGoBackwardsThomas.png" alt="Jake Thomas" onerror="this.style.display='none';this.parentElement.textContent='JT'"></div>
+          <div class="player-name">Jake Thomas</div>
+          <div class="player-aka">"Tasmanian Devil"</div>
+          <div class="player-desc">A whirlwind playstyle that frequently defies the known laws of physics and spatial awareness.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/GloriaWitham.png" alt="Gloria Witham" onerror="this.style.display='none';this.parentElement.textContent='GW'"></div>
+          <div class="player-name">Gloria Witham</div>
+          <div class="player-aka">"The Glue"</div>
+          <div class="player-desc">The essential player who keeps the circle from falling apart during high-stress rallies.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JustinJuiceZuraski.png" alt="Justin Zurawski" onerror="this.style.display='none';this.parentElement.textContent='JZ'"></div>
+          <div class="player-name">Justin Zurawski</div>
+          <div class="player-aka">"Juice"</div>
+          <div class="player-desc">Pure RIOT energy. When Juice enters the circle, the intensity triples instantly.</div>
         </div>
       </div>
 
@@ -1139,7 +1165,7 @@
 
       <div class="golden-era-banner" style="background: linear-gradient(90deg, #0033aa, #0066ff, #0033aa); color: #ffd700; border-color: #ffd700;">
         &#9733; MAY 1, 2026 &#9733;<br>
-        <span style="font-size:0.65em; font-family: 'Comic Sans MS', cursive;">A DATE OF PROPHETIC HOPE</span>
+        <span style="font-size:0.65em; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;">A DATE OF PROPHETIC HOPE</span>
       </div>
 
       <p>On this day, new recruits <strong>Brandon Petite</strong> and <strong>Dan Oltizky</strong> will be brought into the fold. Furthermore, <strong>Allison Cates</strong> will be arriving in town to be officially inducted into the circle.</p>
@@ -1174,6 +1200,13 @@
   </div>
 </footer>
 
+<div class="top-marquee" style="position:relative;">
+  <span class="scroll-text">
+    * SEE ALSO: THINK AHEAD STUDIOS; EULOGY -- REQUIRED WATCHING TO BETTER UNDERSTAND BALLBALL MEME CULTURE * SEE ALSO: THINK AHEAD STUDIOS; EULOGY -- REQUIRED WATCHING TO BETTER UNDERSTAND BALLBALL MEME CULTURE *
+    <a href="https://drive.google.com/file/d/1DxrqgwBuGpmDFHKFunX90APohJQXnfwH/view?usp=share_link" target="_blank" style="color:#ffd700;text-decoration:underline;">
+  </span>
+</div>
+
 <script>
   // Smooth scrolling for nav links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1185,6 +1218,49 @@
       }
     });
   });
+
+  // DVD-style bouncing BallBalls
+  (function() {
+    var balls = [];
+    var sizes = [80, 110, 60];
+    var speeds = [
+      { dx: 1.2, dy: 0.8 },
+      { dx: -0.9, dy: 1.1 },
+      { dx: 0.7, dy: -1.3 }
+    ];
+    for (var i = 0; i < 3; i++) {
+      var el = document.createElement('div');
+      el.className = 'bouncing-ball';
+      el.style.width = sizes[i] + 'px';
+      el.style.height = sizes[i] + 'px';
+      el.innerHTML = '<img src="BallBallGIF-FolderIcon.png" alt="">';
+      document.body.appendChild(el);
+      balls.push({
+        el: el,
+        x: Math.random() * (window.innerWidth - sizes[i]),
+        y: Math.random() * (window.innerHeight - sizes[i]),
+        dx: speeds[i].dx,
+        dy: speeds[i].dy,
+        size: sizes[i]
+      });
+    }
+    function animate() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      for (var i = 0; i < balls.length; i++) {
+        var b = balls[i];
+        b.x += b.dx;
+        b.y += b.dy;
+        if (b.x <= 0 || b.x + b.size >= w) b.dx *= -1;
+        if (b.y <= 0 || b.y + b.size >= h) b.dy *= -1;
+        b.x = Math.max(0, Math.min(b.x, w - b.size));
+        b.y = Math.max(0, Math.min(b.y, h - b.size));
+        b.el.style.transform = 'translate(' + b.x + 'px,' + b.y + 'px)';
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
 
   // Fake visitor counter increment
   const counter = document.getElementById('visitorCount');
