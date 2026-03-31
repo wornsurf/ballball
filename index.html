@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BallBall Official - The Definitive History & Rules of BallBall</title>
+<style>
+  /* ============ RESET & BASE ============ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "Trebuchet MS", "Comic Sans MS", Arial, sans-serif;
+    background: #1a0a3e;
+    color: #222;
+    min-height: 100vh;
+  }
+
+  /* ============ STARFIELD BACKGROUND ============ */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 30% 50%, #ffd700 1px, transparent 0),
+      radial-gradient(1.5px 1.5px at 50% 10%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 70% 80%, #ffd700 1px, transparent 0),
+      radial-gradient(1px 1px at 90% 30%, #fff 1px, transparent 0),
+      radial-gradient(1.5px 1.5px at 15% 70%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 85% 60%, #ffd700 1px, transparent 0),
+      radial-gradient(1px 1px at 45% 90%, #fff 1px, transparent 0),
+      radial-gradient(1.5px 1.5px at 60% 40%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 25% 35%, #ffd700 1px, transparent 0);
+    background-color: #1a0a3e;
+    z-index: -1;
+  }
+
+  /* ============ FILM GRAIN / NOISE OVERLAY ============ */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    mix-blend-mode: overlay;
+  }
+
+  /* Subtle wash-out on all gradient sections */
+  .content-section::before,
+  .site-header::before,
+  .main-nav::before,
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+    z-index: 1;
+  }
+  .site-header, .main-nav, .site-footer, .content-section {
+    position: relative;
+  }
+  .content-section > * { position: relative; z-index: 2; }
+  .site-header > * { position: relative; z-index: 2; }
+  .site-footer > * { position: relative; z-index: 2; }
+
+  /* ============ TOP MARQUEE BAR ============ */
+  .top-marquee {
+    background: linear-gradient(to right, #ff0000, #ff6600, #ffcc00, #ff6600, #ff0000);
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 0;
+    text-shadow: 1px 1px 2px #000;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .top-marquee .scroll-text {
+    display: inline-block;
+    animation: marquee 25s linear infinite;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* ============ HEADER ============ */
+  .site-header {
+    background: linear-gradient(180deg, #0033aa 0%, #001166 50%, #000033 100%);
+    border-bottom: 6px solid #ffd700;
+    text-align: center;
+    padding: 20px 10px 15px;
+  }
+  .site-header h1 {
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(42px, 8vw, 90px);
+    color: #ffd700;
+    text-shadow: 3px 3px 0 #ff6600, 6px 6px 0 #cc0000, 0 0 30px rgba(255,215,0,0.5);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .site-header .subtitle {
+    font-family: "Comic Sans MS", "Trebuchet MS", cursive;
+    color: #fff;
+    font-size: clamp(12px, 2.5vw, 20px);
+    margin-top: 8px;
+    text-shadow: 1px 1px 3px #000;
+  }
+  .header-stars {
+    position: absolute;
+    top: 10px;
+    animation: spin 4s linear infinite;
+  }
+  .header-stars img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+  .header-stars.left { left: 20px; }
+  .header-stars.right { right: 20px; }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  /* ============ NAVIGATION ============ */
+  .main-nav {
+    background: linear-gradient(180deg, #cc0000, #990000);
+    border-bottom: 4px solid #ffd700;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+  }
+  .main-nav a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Arial Black", Impact, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border-right: 2px solid #ffd700;
+    border-left: 1px solid rgba(255,255,255,0.2);
+    transition: background 0.2s;
+    text-shadow: 1px 1px 1px #000;
+    position: relative;
+    z-index: 2;
+  }
+  .main-nav a:first-child { border-left: 2px solid #ffd700; }
+  .main-nav a:hover {
+    background: #ffd700;
+    color: #990000;
+    text-shadow: none;
+  }
+
+  /* ============ MAIN CONTAINER ============ */
+  .main-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 15px;
+  }
+
+  /* ============ SECTION STYLES ============ */
+  .content-section {
+    background: linear-gradient(180deg, #fffff0, #fff8dc);
+    border: 3px solid #0033aa;
+    border-radius: 0;
+    margin-bottom: 25px;
+    box-shadow: 5px 5px 0 #000, inset 0 0 0 2px #ffd700;
+    overflow: hidden;
+  }
+  .section-header {
+    background: linear-gradient(180deg, #0044cc, #002288);
+    color: #ffd700;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: clamp(18px, 3.5vw, 28px);
+    padding: 10px 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 #000;
+    border-bottom: 3px solid #ffd700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-header .star {
+    color: #ff0000;
+    font-size: 22px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+  .section-body {
+    padding: 18px 20px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .section-body p {
+    margin-bottom: 12px;
+  }
+
+  /* ============ SPECIAL BOXES ============ */
+  .callout-box {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 3px dashed #ff6600;
+    padding: 15px;
+    margin: 15px 0;
+    font-family: "Comic Sans MS", "Trebuchet MS", cursive;
+    font-size: 14px;
+    position: relative;
+  }
+  .callout-box::before {
+    content: "!!!";
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #ff0000;
+    color: #fff;
+    font-family: Impact, sans-serif;
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 2px solid #ffd700;
+  }
+
+  .warning-box {
+    background: linear-gradient(135deg, #ffcccc, #ff9999);
+    border: 3px solid #cc0000;
+    padding: 15px;
+    margin: 15px 0;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* ============ RULE LIST ============ */
+  .rule-list {
+    list-style: none;
+    counter-reset: rule-counter;
+    padding: 0;
+  }
+  .rule-list li {
+    counter-increment: rule-counter;
+    padding: 12px 15px 12px 60px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #e6f0ff, #fff);
+    border-left: 5px solid #cc0000;
+    position: relative;
+    font-size: 14px;
+  }
+  .rule-list li::before {
+    content: counter(rule-counter);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #cc0000;
+    color: #ffd700;
+    font-family: Impact, sans-serif;
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffd700;
+  }
+
+  /* ============ TERMINOLOGY TABLE ============ */
+  .term-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 14px;
+  }
+  .term-table th {
+    background: linear-gradient(180deg, #cc0000, #990000);
+    color: #ffd700;
+    font-family: "Arial Black", Impact, sans-serif;
+    padding: 10px 12px;
+    text-align: left;
+    text-transform: uppercase;
+    border: 2px solid #ffd700;
+    font-size: 13px;
+  }
+  .term-table td {
+    padding: 10px 12px;
+    border: 1px solid #999;
+    vertical-align: top;
+  }
+  .term-table tr:nth-child(even) td {
+    background: #e8e8ff;
+  }
+  .term-table tr:nth-child(odd) td {
+    background: #fff;
+  }
+  .term-table tr:hover td {
+    background: #ffeaa7;
+  }
+  .term-name {
+    font-family: "Arial Black", Impact, sans-serif;
+    color: #0033aa;
+    white-space: nowrap;
+  }
+
+  /* ============ RECORDS TABLE ============ */
+  .records-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .records-table th {
+    background: linear-gradient(180deg, #0044cc, #002288);
+    color: #ffd700;
+    font-family: "Arial Black", sans-serif;
+    padding: 8px 12px;
+    border: 2px solid #ffd700;
+    text-align: center;
+  }
+  .records-table td {
+    padding: 8px 12px;
+    border: 1px solid #888;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+  }
+  .records-table tr:nth-child(even) td { background: #ffe; }
+  .records-table tr:nth-child(odd) td { background: #fff; }
+  .records-table .record-highlight td {
+    background: linear-gradient(90deg, #ffd700, #ffec80, #ffd700) !important;
+    color: #cc0000;
+    font-size: 16px;
+    position: relative;
+  }
+  .records-table .record-highlight td::after {
+    content: " ALL-TIME RECORD!";
+    font-size: 10px;
+    color: #cc0000;
+    font-family: "Comic Sans MS", cursive;
+    animation: blink 1s step-start infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* ============ PLAYER CARDS ============ */
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+  }
+  .player-card {
+    background: linear-gradient(180deg, #fff, #e0e0ff);
+    border: 3px solid #0033aa;
+    text-align: center;
+    padding: 15px 10px;
+    box-shadow: 3px 3px 0 #000;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .player-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #000;
+  }
+  .player-card .player-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd700, #ff6600);
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border: 3px solid #0033aa;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    overflow: hidden;
+  }
+  .player-card .player-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .player-card .player-name {
+    font-family: "Arial Black", Impact, sans-serif;
+    color: #0033aa;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .player-card .player-aka {
+    font-family: "Comic Sans MS", cursive;
+    color: #cc0000;
+    font-size: 12px;
+    font-style: italic;
+  }
+  .player-card .player-desc {
+    font-size: 11px;
+    color: #555;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+  .player-card.legend {
+    border-color: #ffd700;
+    background: linear-gradient(180deg, #fff8dc, #fff3b0);
+  }
+  .player-card.legend .player-icon {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    border-color: #ffd700;
+  }
+
+  /* ============ COURT DIAGRAM ============ */
+  .court-diagram {
+    background: #2a5a2a;
+    border: 4px solid #ffd700;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 15px 0;
+    text-align: center;
+    color: #fff;
+    font-family: "Courier New", monospace;
+    position: relative;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+  }
+  .court-diagram .court-label {
+    font-family: Impact, sans-serif;
+    font-size: 20px;
+    color: #ffd700;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 10px;
+  }
+  .court-dims {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #aaffaa;
+  }
+  .court-ascii {
+    font-size: 12px;
+    line-height: 1.2;
+    color: #88ff88;
+    white-space: pre;
+    display: inline-block;
+    text-align: left;
+  }
+
+  /* ============ COMPANY BALLICY SECTION ============ */
+  .ballicy-section {
+    background: linear-gradient(180deg, #fffff0, #fff8dc);
+    border: 4px double #cc0000;
+  }
+  .ballicy-section .section-header {
+    background: linear-gradient(180deg, #cc0000, #880000);
+  }
+
+  /* ============ FUTURE SECTION ============ */
+  .future-section {
+    background: linear-gradient(180deg, #0a0a2e, #1a1a4e);
+    color: #fff;
+    border: 3px solid #ffd700;
+  }
+  .future-section .section-body {
+    color: #ddd;
+  }
+  .future-section .section-body strong {
+    color: #ffd700;
+  }
+
+  /* ============ FOOTER ============ */
+  .site-footer {
+    background: linear-gradient(180deg, #000033, #000);
+    border-top: 4px solid #ffd700;
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+  }
+  .site-footer .footer-ball {
+    margin-bottom: 10px;
+    animation: bounce 1s ease-in-out infinite;
+  }
+  .site-footer .footer-ball img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    image-rendering: auto;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .visitor-counter {
+    background: #000;
+    border: 2px inset #888;
+    display: inline-block;
+    padding: 4px 12px;
+    margin: 10px 0;
+    font-family: "Courier New", monospace;
+    color: #0f0;
+    font-size: 14px;
+  }
+  .footer-links a {
+    color: #ffd700;
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  .construction-gif {
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: "Comic Sans MS", cursive;
+    color: #ffd700;
+  }
+
+  /* ============ MISC / UTILITIES ============ */
+  strong { color: #0033aa; }
+  .highlight { color: #cc0000; font-weight: bold; }
+  .gold { color: #ffd700; }
+  .sub-header {
+    font-family: "Arial Black", Impact, sans-serif;
+    color: #cc0000;
+    font-size: 16px;
+    margin: 15px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #cc0000;
+    text-transform: uppercase;
+  }
+
+  /* ============ GOLDEN ERA BANNER ============ */
+  .golden-era-banner {
+    background: linear-gradient(90deg, #ffd700, #ff8c00, #ffd700);
+    text-align: center;
+    padding: 15px;
+    font-family: Impact, sans-serif;
+    font-size: clamp(16px, 3vw, 24px);
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border: 3px solid #000;
+    margin: 15px 0;
+    box-shadow: 0 0 20px rgba(255,215,0,0.5);
+    animation: glow 2s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+    50% { box-shadow: 0 0 30px rgba(255,215,0,0.8); }
+  }
+
+  /* ============ ACTIVE ROSTER STRIP ============ */
+  .roster-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+  }
+  .roster-chip {
+    background: linear-gradient(180deg, #cc0000, #880000);
+    color: #ffd700;
+    font-family: "Arial Black", sans-serif;
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 2px solid #ffd700;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 600px) {
+    .main-nav a { font-size: 11px; padding: 8px 8px; }
+    .player-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .section-body { padding: 12px 14px; }
+    .court-ascii { font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP MARQUEE ===== -->
+<div class="top-marquee">
+  <span class="scroll-text">
+    * OFFICIAL BALLBALL HEADQUARTERS * ALL-TIME RECORD: 484 * ESTABLISHED CIRCA 2ND CENTURY BC * 605 E. MARKET STREET, INDIANAPOLIS * MANDATORY READING FOR ALL EMPLOYEES * RESPECT THE FALLEN BALLBALL * COMPANY BALLICY IN EFFECT * TINY TOES *
+  </span>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-stars left"><img src="BallBallGIF-FolderIcon.png" alt="" style="width:36px;height:36px;"></div>
+  <div class="header-stars right"><img src="BallBallGIF-FolderIcon.png" alt="" style="width:36px;height:36px;"></div>
+  <h1>BallBall</h1>
+  <div class="subtitle">The Official Home of the World's Most Prestigious Office Sport</div>
+</header>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="main-nav" id="topnav">
+  <a href="#origins">Origins</a>
+  <a href="#equipment">Equipment</a>
+  <a href="#dko">DKO Rules</a>
+  <a href="#terminology">Terminology</a>
+  <a href="#court">The Court</a>
+  <a href="#ballicy">Company Ballicy</a>
+  <a href="#records">Records</a>
+  <a href="#halloffame">Hall of Fame</a>
+  <a href="#future">The Future</a>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-container">
+
+  <!-- WELCOME / MEMO -->
+  <div class="content-section">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Memorandum to All Employees
+      <span class="star">&#9733;</span>
+    </div>
+    <div class="section-body">
+      <div class="warning-box">
+        STANDARD OPERATING PROCEDURE: THE DEFINITIVE HISTORY OF BALLBALL
+      </div>
+      <p>Welcome to the team. Among the many operational protocols and standard operating procedures you will learn during your tenure, perhaps none is as culturally significant as the rich, deeply serious, and completely chaotic sport of <strong>BallBall</strong>.</p>
+      <p>All personnel are required to review the following history, rulebook, terminology, and historical archives carefully. <span class="highlight">Failure to do so may result in poor studio performance, elimination during a knockout round, or a direct violation of Company Ballicy.</span></p>
+    </div>
+  </div>
+
+  <!-- PART I: ORIGINS -->
+  <div class="content-section" id="origins">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part I: The Ancient Origins of BallBall
+    </div>
+    <div class="section-body">
+      <p>The sport of "Ball Ball" has a rich and fascinating history that dates back several centuries. It is a unique and exciting game that requires exceptional footwork, coordination, and teamwork.</p>
+
+      <div class="sub-header">Origins</div>
+      <p>The origins of Ball Ball can be traced back to ancient civilizations. It is believed that a precursor to the sport was played in ancient China during the Han dynasty around the <strong>2nd century BC</strong>. Early pioneers stood in a circle, using their feet to keep a ball made of woven materials or animal bladders in the air.</p>
+
+      <div class="sub-header">Spread and Evolution</div>
+      <p>As trade and exploration expanded, so did the popularity of the game. Ball Ball spread to different regions of Asia and Europe through trade routes and cultural exchanges.</p>
+
+      <div class="sub-header">Formalization</div>
+      <p>In the late 19th century, Ball Ball gained recognition as a formalized sport. Rules and regulations were standardized, marking the beginning of the sport's modern era.</p>
+    </div>
+  </div>
+
+  <!-- PART II: EQUIPMENT -->
+  <div class="content-section" id="equipment">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part II: Official Equipment & Evolutionary Precursors
+    </div>
+    <div class="section-body">
+      <p>While the ancients used animal bladders, our modern arena required adaptation and highly specific sporting goods.</p>
+
+      <div class="callout-box">
+        <strong>The Official BallBall:</strong> The regulation game is played with a <strong>10-inch, multi-colored rubber ball</strong> equipped with "fun grippers" (officially designated as the "Fun Gripper" ball by Saturnian 1 Sport).
+      </div>
+
+      <div class="sub-header">The Evolutionary Bridge: Hamper Ball (Bonus Round)</div>
+      <p>Before DKO, there was <strong>Hamper Ball</strong>. Played as a high-stakes bonus round, a large bin was placed in the center of the circle and the standard ball was swapped out for a larger <strong>16-inch variant</strong>. Once everyone in the circle registered a touch, the goal shifted to kicking the ball into the hamper. Each successful hamper sink renewed the round. The round only ended when the ball finally hit the ground. This thrilling variant directly paved the way for modern DKO.</p>
+    </div>
+  </div>
+
+  <!-- PART III: DKO RULES -->
+  <div class="content-section" id="dko">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part III: The Modern Office Era (DKO)
+    </div>
+    <div class="section-body">
+      <p>Enter <strong>DKO</strong> -- a high-stakes, localized variant that tests office reflexes, panic management, and spatial awareness. To the untrained eye, it looks like a chaotic version of basketball "knockout" played with a giant ball. To the initiated, it is peak athletic performance.</p>
+
+      <div class="sub-header">The Rules of Engagement</div>
+      <ol class="rule-list">
+        <li><strong>The Golden Rule:</strong> To score, a player must get the VERY LARGE 16-inch BallBall into the hamper using any body part except their hands and arms.</li>
+        <li><strong>The Knockout Mechanic:</strong> Players form a single-file line. Player 1 kicks. Slightly offset in time, Player 2 kicks. If Player 1 misses, they must frantically retrieve the ball and keep trying to score from wherever it lands, all while Player 2 is doing the exact same thing.</li>
+        <li><strong>Elimination:</strong> If the person behind you in the starting order sinks the ball into the hamper before you do, you are eliminated. If you score first, you retrieve the ball, pass it to the next person in line, and hustle to the back to survive another round.</li>
+      </ol>
+
+      <div class="sub-header">Customs & Court Etiquette</div>
+
+      <div class="callout-box">
+        <strong>Respect for the Fallen BallBall:</strong> When a rally dies, it is not officially required -- but it is <em>highly regarded</em> -- to drop to one knee out of respect for the fallen BallBall.
+      </div>
+
+      <div class="callout-box">
+        <strong>The Kneeling Statue:</strong> If a ball rolls entirely out of bounds and a player must run a significant distance to retrieve it for a "free kick" back into the circle, a sacred tradition takes hold. The remaining players must freeze in place, acting as kneeling statues. They must then attempt to receive the incoming free kick using only their knees or heads. While historically rarely successful, executing a Kneeling Statue reception is considered one of the highest honors in the sport.
+      </div>
+    </div>
+  </div>
+
+  <!-- PART IV: TERMINOLOGY -->
+  <div class="content-section" id="terminology">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part IV: Advanced Roles, Terminology & Specialty Moves
+    </div>
+    <div class="section-body">
+      <p>Over years of intense studio sessions, specialized roles and highly technical maneuvers have emerged. You are expected to know the following terminology:</p>
+
+      <div class="sub-header">Specialized Roles & Tactics</div>
+      <table class="term-table">
+        <thead>
+          <tr><th>Term</th><th>Definition</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="term-name">The 'Nip'</td>
+            <td>A highly specialized, tactical position deployed when a rally is suffering. A skill player enters the center of the circle, orienting themselves toward the current kicker to close the gap. <em>(HR Note: Shortened from previous anatomical comparisons for legal reasons.)</em></td>
+          </tr>
+          <tr>
+            <td class="term-name">Tiny Toes</td>
+            <td>Invented by <strong>Jason Drake</strong>. A tactic used to rack up a lot of kicks very quickly. Conversely, it is shouted aggressively by veterans to remind the group to settle down and execute small, controlled touches.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-header">Specialty Moves</div>
+      <table class="term-table">
+        <thead>
+          <tr><th>Move</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="term-name">St. Nogustine</td>
+            <td>A holy title bestowed upon a player who achieves 10+ consecutive hits with their 'nog' (head). The current all-time record is held by <strong>Jeremy Albert</strong> with <strong>30 consecutive nogs</strong>.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Round of Nogs (RoN)</td>
+            <td>A legendary sequence of consecutive headers by multiple players, honoring St. Nogustine.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Pink Eye</td>
+            <td>A highly hazardous combo move. Player A hits the BallBall with their posterior; Player B immediately follows up with a 'NoG' (head) for the next hit.</td>
+          </tr>
+          <tr>
+            <td class="term-name">The Epidemic</td>
+            <td>The disastrous escalation of a Pink Eye. Happens when a Pink Eye successfully transitions directly into a full Round of Nogs (RoN).</td>
+          </tr>
+          <tr>
+            <td class="term-name">The Scorpion</td>
+            <td>A devastatingly disrespectful no-look, behind-the-back kick.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Chin Lon</td>
+            <td>A style-heavy flair move involving a knee strike and a simultaneous lookaway, tracing back to ancient wicker ball play.</td>
+          </tr>
+          <tr>
+            <td class="term-name">The DSD</td>
+            <td>Named after Dick Shot Dean. A localized assault wherein a player absolutely smashes a high-velocity kick directly into another player's midsection.</td>
+          </tr>
+          <tr>
+            <td class="term-name">March of Dimes</td>
+            <td>Heavily influenced by <strong>Matty McMahon (P A C E R I V E R S)</strong>. A rapid-fire series of consecutive knee hits.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Butts and Bellies</td>
+            <td>A highly specific technique whose mythical origins are incredibly cloudy in explanation. If you know, you know.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Mr. Trevor</td>
+            <td>The act of striking the ball while maintaining the rigid, impeccable, upright posture of a Fortune 500 CEO.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-header">Legal "Hand" Loopholes</div>
+      <table class="term-table">
+        <thead>
+          <tr><th>Loophole</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="term-name">The Cat</td>
+            <td>A player may use their hands only if they fully commit to lying flat on their back and swatting at the BallBall with all four limbs, simulating a cat playing with yarn.</td>
+          </tr>
+          <tr>
+            <td class="term-name">Hand of God</td>
+            <td>A rare allowance pioneered by <strong>Felicia Lahti</strong>, where a totally stray kick is magically and gracefully brought back into the circle by someone's hand or arm to save the rally.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PART V: THE COURT -->
+  <div class="content-section" id="court">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part V: The Official Court (The Studio)
+    </div>
+    <div class="section-body">
+      <p>The official BallBall court is located at <strong>605 E. Market Street in Indianapolis</strong> -- a one-of-a-kind, modern marvel of athletic architecture.</p>
+
+      <div class="court-diagram">
+        <div class="court-label">THE STUDIO ARENA</div>
+        <div class="court-dims">30' W &times; 48' L &times; 22' H</div>
+        <pre class="court-ascii">
+    +-------------------------------------------------+
+    |   [LIGHTING GRID / PROJECTOR BACKBOARD]         |
+    |   ~ Rated for 6 Hummers (DO NOT TEST) ~        |
+    |                                                 |
+    |        .-~~~-.         .-~~~-.                   |
+    |       /  CAM  \       / GEAR  \    [CAMERA]     |
+    |       \_______/       \_______/    [  GEAR ]    |
+    |                                                 |
+    |             * * * * * * *                       |
+    |           *       O       *    &lt;- The Circle   |
+    |          *    [HAMPER]     *                     |
+    |           *               *                     |
+    |             * * * * * * *                       |
+    |                                                 |
+    |   [STUDIO FLATS]             [TABLES]           |
+    |    (diveable)                 (also diveable)    |
+    +-------------------------------------------------+
+        </pre>
+      </div>
+
+      <div class="callout-box">
+        <strong>The Grid:</strong> A heavy-duty lighting grid holding the projector (a highly respected backboard). We've been officially advised it can support 6 Hummers. Please do not test this.
+      </div>
+
+      <div class="callout-box">
+        <strong>Protocol:</strong> Players must be "very careful" around expensive camera gear. However, sacrificing your body by diving over a table or crashing into a studio flat to keep a rally alive is considered championship-level commitment.
+      </div>
+    </div>
+  </div>
+
+  <!-- PART VI: COMPANY BALLICY -->
+  <div class="content-section ballicy-section" id="ballicy">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part VI: The Mandatory "Company Ballicy"
+    </div>
+    <div class="section-body">
+      <div class="warning-box">
+        MANDATORY PROTOCOL -- ALL PERSONNEL MUST COMPLY
+      </div>
+      <p>Before a match can officially conclude and employees are permitted to return to their actual work, the players must form a circle. <strong>Every single person</strong> must register one solid touch (feet/body only) in a single, continuous rally. If the ball drops, the attempt is void, and the rally must start over.</p>
+      <p>This historically serves as a highly effective loophole to stretch "one last round" into a <span class="highlight">15-minute delay</span>.</p>
+    </div>
+  </div>
+
+  <!-- PART VII: RECORDS -->
+  <div class="content-section" id="records">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part VII: Historical Archives (The Records)
+    </div>
+    <div class="section-body">
+      <p>A true sport is defined by its numbers.</p>
+
+      <div class="sub-header">Standard BallBall Records</div>
+      <table class="records-table">
+        <thead>
+          <tr><th>Date</th><th>Record</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10/01/18</td><td>18 | 20</td></tr>
+          <tr><td>10/15/18</td><td>30</td></tr>
+          <tr><td>01/03/19</td><td>106</td></tr>
+          <tr><td>01/15/19</td><td>218</td></tr>
+          <tr><td>03/19/19</td><td>247</td></tr>
+          <tr class="record-highlight"><td>03/20/19</td><td>484</td></tr>
+          <tr><td>09/17/20</td><td>33</td></tr>
+          <tr><td>06/08/21</td><td>28</td></tr>
+        </tbody>
+      </table>
+
+      <div class="golden-era-banner">
+        &#9733; The Golden Era &#9733;<br>
+        <span style="font-size:0.7em; font-family: 'Comic Sans MS', cursive;">The astronomical leap from 30 to 484 between late 2018 and early 2019</span>
+      </div>
+
+      <div class="sub-header">Hamper (Hamperton) Records</div>
+      <table class="records-table">
+        <thead>
+          <tr><th>Date</th><th>Record</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>03/14/19</td><td>9</td><td></td></tr>
+          <tr class="record-highlight"><td>06/07/19</td><td>24</td><td></td></tr>
+          <tr><td>09/05/19</td><td>8</td><td>big hamp, small ball</td></tr>
+          <tr><td>10/13/21</td><td>6</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PART VIII: HALL OF FAME -->
+  <div class="content-section" id="halloffame">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part VIII: The Hall of Influential Players
+    </div>
+    <div class="section-body">
+      <p>The culture of BallBall was built on the backs of its pioneers.</p>
+
+      <div class="sub-header">The Legends (Complete Archives)</div>
+      <div class="player-grid">
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JasonDrake.jpg" alt="Jason Drake" onerror="this.style.display='none';this.parentElement.textContent='JD'"></div>
+          <div class="player-name">Jason Drake</div>
+          <div class="player-aka">"OG"</div>
+          <div class="player-desc">All-time individual record holder and inventor of "Tiny Toes."</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JeremyEverywhereAlbert.jpg" alt="Jeremy Albert" onerror="this.style.display='none';this.parentElement.textContent='JA'"></div>
+          <div class="player-name">Jeremy Albert</div>
+          <div class="player-aka">"Everywhere"</div>
+          <div class="player-desc">The reigning St. Nogustine. 30 consecutive nogs.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/FeliciaTheRecordKeeperLahti-Fee.jpg" alt="Felicia Lahti" onerror="this.style.display='none';this.parentElement.textContent='FL'"></div>
+          <div class="player-name">Felicia Lahti</div>
+          <div class="player-aka">"Fee" / "The Record Keeper"</div>
+          <div class="player-desc">Post Production Supervisor. Pioneer of the "Hand of God."</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/DeanMosier.jpg" alt="Dean Mosier" onerror="this.style.display='none';this.parentElement.textContent='DM'"></div>
+          <div class="player-name">Dean Mosier</div>
+          <div class="player-aka">"DSD"</div>
+          <div class="player-desc">Lead Animator. The fastest kick in the west.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/KurtisBowersock.jpg" alt="Kurtis Bowersock" onerror="this.style.display='none';this.parentElement.textContent='KB'"></div>
+          <div class="player-name">Kurtis Bowersock</div>
+          <div class="player-aka">"Dirty Kurty"</div>
+          <div class="player-desc">Terrifyingly calm while flying toward a $50,000 camera.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/RyderHarmon.jpg" alt="Ryder Harmon" onerror="this.style.display='none';this.parentElement.textContent='RH'"></div>
+          <div class="player-name">Ryder Harmon</div>
+          <div class="player-aka">"I Go"</div>
+          <div class="player-desc">Plays in the tightest jeans and highly inappropriate pointy dress shoes.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/LoriLudwig.jpg" alt="Lori Ludwig" onerror="this.style.display='none';this.parentElement.textContent='LL'"></div>
+          <div class="player-name">Lori Ludwig</div>
+          <div class="player-aka"></div>
+          <div class="player-desc">Top-tier recruit from Design. Seasoned soccer star turned elite BallBaller.</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/MattyMcMahon-PaceRivers.jpg" alt="Matty McMahon" onerror="this.style.display='none';this.parentElement.textContent='MM'"></div>
+          <div class="player-name">Matty McMahon</div>
+          <div class="player-aka">"Pace Rivers"</div>
+          <div class="player-desc">Namesake of the "March of Dimes."</div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/BoTheStingrayDietrick.jpg" alt="Bo Dietrick" onerror="this.style.display='none';this.parentElement.textContent='BD'"></div>
+          <div class="player-name">Bo Dietrick</div>
+          <div class="player-aka">"The Stingray"</div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/CarlingLeapOfFaithDannaoui.jpg" alt="Carling Dannaoui" onerror="this.style.display='none';this.parentElement.textContent='CD'"></div>
+          <div class="player-name">Carling Dannaoui</div>
+          <div class="player-aka">"Leap of Faith"</div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/AndyChoka-Dr.Choka.jpg" alt="Andy Choka" onerror="this.style.display='none';this.parentElement.textContent='AC'"></div>
+          <div class="player-name">Andy Choka</div>
+          <div class="player-aka">"Dr. Choka"</div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JustinJuiceZuraski.png" alt="Justin Zurawski" onerror="this.style.display='none';this.parentElement.textContent='JZ'"></div>
+          <div class="player-name">Justin Zurawski</div>
+          <div class="player-aka">"Juice"</div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/BenPonyBoyPoenisch.jpg" alt="Benjamin Poenisch" onerror="this.style.display='none';this.parentElement.textContent='BP'"></div>
+          <div class="player-name">Benjamin Poenisch</div>
+          <div class="player-aka">"Pony Boy"</div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/NickTheBodyPasotti.jpg" alt="Nick Pasotti" onerror="this.style.display='none';this.parentElement.textContent='NP'"></div>
+          <div class="player-name">Nick Pasotti</div>
+          <div class="player-aka">"The Body"</div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/ErinShales.jpg" alt="Erin Shales" onerror="this.style.display='none';this.parentElement.textContent='ES'"></div>
+          <div class="player-name">Erin Shales</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+      </div>
+
+      <div class="sub-header">Essential Architects & Core Pioneers of the Modern Era</div>
+      <div class="roster-strip">
+        <span class="roster-chip">Zac Cooper</span>
+        <span class="roster-chip">Blake Lewis</span>
+        <span class="roster-chip">Gloria Witham</span>
+        <span class="roster-chip">Brian Puffer</span>
+        <span class="roster-chip">Taylor Lucas</span>
+        <span class="roster-chip">Josh Gaal</span>
+        <span class="roster-chip">Maddy Montoya</span>
+        <span class="roster-chip">Joey Simmons</span>
+        <span class="roster-chip">Jacob Atwood</span>
+        <span class="roster-chip">Sha Collier</span>
+        <span class="roster-chip">Jake Thomas</span>
+        <span class="roster-chip">Luke Tate</span>
+        <span class="roster-chip">JD Schuyler</span>
+        <span class="roster-chip">Lexi Hiland</span>
+      </div>
+
+      <div class="sub-header">The Current Active Roster</div>
+      <div class="roster-strip">
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Jason Drake</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Zac Cooper</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Jeremy Albert</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Felicia Lahti</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Blake Lewis</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Andy Choka</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Gloria Witham</span>
+        <span class="roster-chip" style="background:linear-gradient(180deg,#ffd700,#cc9900);color:#000;border-color:#cc0000;">Nick Pasotti</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART IX: SOUNDTRACK -->
+  <div class="content-section">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part IX: The Official Soundtrack
+    </div>
+    <div class="section-body" style="text-align:center;">
+      <p>The official DKO playlist is an unhinged, legendary collection of random tracks that nobody claims to like, yet provides the exact chaotic energy required.</p>
+      <p><strong>Mandatory listening during all official matches.</strong></p>
+      <div style="margin-top: 1.5em;">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/780J24KzGqeepaeQQzXkq5?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+      <p style="margin-top: 1em;">or have a listen on <a href="https://music.apple.com/us/playlist/ballball/pl.u-7D6MIaaLl8" target="_blank" style="color: #ffd700; text-decoration: underline;"><strong>Apple Music</strong></a>.</p>
+    </div>
+  </div>
+
+  <!-- PART X: THE FUTURE -->
+  <div class="content-section future-section" id="future">
+    <div class="section-header">
+      <span class="star">&#9733;</span>
+      Part X: The Future of the Sport
+    </div>
+    <div class="section-body">
+      <p>Following the Golden Era, the sport faced its greatest threat: the transition to remote work. The records gap spanning 2022 to 2024 marks the <strong>"Dark Ages."</strong> Yet, the flame survived through sparse, defiant one-person records (such as Jeremy Albert's solo run of 25).</p>
+
+      <p>Now, the sport stands on the precipice of a renaissance.</p>
+
+      <div class="golden-era-banner" style="background: linear-gradient(90deg, #0033aa, #0066ff, #0033aa); color: #ffd700; border-color: #ffd700;">
+        &#9733; MAY 1, 2026 &#9733;<br>
+        <span style="font-size:0.65em; font-family: 'Comic Sans MS', cursive;">A DATE OF PROPHETIC HOPE</span>
+      </div>
+
+      <p>On this day, new recruits <strong>Brandon Petite</strong> and <strong>Dan Oltizky</strong> will be brought into the fold. Furthermore, <strong>Allison Cates</strong> will be arriving in town to be officially inducted into the circle.</p>
+
+      <div class="callout-box" style="border-color:#0033aa; background: linear-gradient(135deg, #001144, #002266); color: #ffd700;">
+        <strong>Scouting Report:</strong> Management has their eyes set on a highly anticipated prospect: <strong>CJ Dinkins</strong>. An outlier hailing from the mountains of Utah, CJ is said to be 6-foot-plus in height and a majestical baller who is all but guaranteed to bring an entirely new, devastating skill move to the Studio Arena.
+      </div>
+
+      <p style="text-align:center; margin-top:20px; font-family: Impact, sans-serif; font-size: 20px; color: #ffd700; text-shadow: 2px 2px 0 #cc0000;">The old guard is quietly optimistic that this new blood will revive the game, shatter the 484 record, and push BallBall to evolve into a modern-day marvel once more.</p>
+    </div>
+  </div>
+
+</div><!-- end main-container -->
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-ball"><img src="BallBallGIF-FolderIcon.png" alt="BallBall"></div>
+  <div><strong style="color:#ffd700;">BallBall Official Headquarters</strong></div>
+  <div style="margin:5px 0;">605 E. Market Street, Indianapolis</div>
+  <div class="visitor-counter">Visitors: <span id="visitorCount">004,842</span></div>
+  <div class="footer-links" style="margin:10px 0;">
+    <a href="#topnav">Back to Top</a> |
+    <a href="#origins">Origins</a> |
+    <a href="#dko">Rules</a> |
+    <a href="#records">Records</a> |
+    <a href="#halloffame">Players</a>
+  </div>
+  <div class="construction-gif">~ Site Under Eternal Construction ~</div>
+  <div style="margin-top:10px; font-size:10px; color:#555;">
+    &copy; 2026 BallBall International. All rights reserved. Tiny Toes&trade; is a registered trademark.<br>
+    Best viewed in Netscape Navigator 4.0 at 800x600 resolution.
+  </div>
+</footer>
+
+<script>
+  // Smooth scrolling for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Fake visitor counter increment
+  const counter = document.getElementById('visitorCount');
+  if (counter) {
+    let count = 4842;
+    setInterval(() => {
+      count += Math.floor(Math.random() * 3);
+      counter.textContent = count.toString().padStart(7, '0');
+    }, 5000);
+  }
+</script>
+
+</body>
+</html>
