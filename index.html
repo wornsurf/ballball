@@ -196,9 +196,15 @@
     gap: 10px;
   }
   .section-header .star {
-    color: #ff0000;
-    font-size: 22px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
     animation: pulse 1.5s ease-in-out infinite;
+  }
+  .section-header .star img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
@@ -626,9 +632,9 @@
   <!-- WELCOME / MEMO -->
   <div class="content-section">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Memorandum to All Employees
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
     </div>
     <div class="section-body">
       <div class="warning-box">
@@ -642,7 +648,7 @@
   <!-- PART I: ORIGINS -->
   <div class="content-section" id="origins">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part I: The Ancient Origins of BallBall
     </div>
     <div class="section-body">
@@ -662,7 +668,7 @@
   <!-- PART II: EQUIPMENT -->
   <div class="content-section" id="equipment">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part II: Official Equipment & Evolutionary Precursors
     </div>
     <div class="section-body">
@@ -680,7 +686,7 @@
   <!-- PART III: DKO RULES -->
   <div class="content-section" id="dko">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part III: The Modern Office Era (DKO)
     </div>
     <div class="section-body">
@@ -708,7 +714,7 @@
   <!-- PART IV: TERMINOLOGY -->
   <div class="content-section" id="terminology">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part IV: Advanced Roles, Terminology & Specialty Moves
     </div>
     <div class="section-body">
@@ -802,7 +808,7 @@
   <!-- PART V: THE COURT -->
   <div class="content-section" id="court">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part V: The Official Court (The Studio)
     </div>
     <div class="section-body">
@@ -845,7 +851,7 @@
   <!-- PART VI: COMPANY BALLICY -->
   <div class="content-section ballicy-section" id="ballicy">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part VI: The Mandatory "Company Ballicy"
     </div>
     <div class="section-body">
@@ -860,7 +866,7 @@
   <!-- PART VII: RECORDS -->
   <div class="content-section" id="records">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part VII: Historical Archives (The Records)
     </div>
     <div class="section-body">
@@ -906,7 +912,7 @@
   <!-- PART VIII: HALL OF FAME -->
   <div class="content-section" id="halloffame">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part VIII: The Hall of Influential Players
     </div>
     <div class="section-body">
@@ -1004,24 +1010,90 @@
           <div class="player-aka"></div>
           <div class="player-desc"></div>
         </div>
-      </div>
-
-      <div class="sub-header">Essential Architects & Core Pioneers of the Modern Era</div>
-      <div class="roster-strip">
-        <span class="roster-chip">Zac Cooper</span>
-        <span class="roster-chip">Blake Lewis</span>
-        <span class="roster-chip">Gloria Witham</span>
-        <span class="roster-chip">Brian Puffer</span>
-        <span class="roster-chip">Taylor Lucas</span>
-        <span class="roster-chip">Josh Gaal</span>
-        <span class="roster-chip">Maddy Montoya</span>
-        <span class="roster-chip">Joey Simmons</span>
-        <span class="roster-chip">Jacob Atwood</span>
-        <span class="roster-chip">Sha Collier</span>
-        <span class="roster-chip">Jake Thomas</span>
-        <span class="roster-chip">Luke Tate</span>
-        <span class="roster-chip">JD Schuyler</span>
-        <span class="roster-chip">Lexi Hiland</span>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/ZacCoopCooper.png" alt="Zac Cooper" onerror="this.style.display='none';this.parentElement.textContent='ZC'"></div>
+          <div class="player-name">Zac Cooper</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/Blake.png" alt="Blake Lewis" onerror="this.style.display='none';this.parentElement.textContent='BL'"></div>
+          <div class="player-name">Blake Lewis</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/GloriaWitham.png" alt="Gloria Witham" onerror="this.style.display='none';this.parentElement.textContent='GW'"></div>
+          <div class="player-name">Gloria Witham</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/BrianPuffDaddyPuffer.png" alt="Brian Puffer" onerror="this.style.display='none';this.parentElement.textContent='BP'"></div>
+          <div class="player-name">Brian Puffer</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/TaylorLucas.png" alt="Taylor Lucas" onerror="this.style.display='none';this.parentElement.textContent='TL'"></div>
+          <div class="player-name">Taylor Lucas</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JoshGaal.png" alt="Josh Gaal" onerror="this.style.display='none';this.parentElement.textContent='JG'"></div>
+          <div class="player-name">Josh Gaal</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/MaddyMontoya.png" alt="Maddy Montoya" onerror="this.style.display='none';this.parentElement.textContent='MM'"></div>
+          <div class="player-name">Maddy Montoya</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JoeySimmons.png" alt="Joey Simmons" onerror="this.style.display='none';this.parentElement.textContent='JS'"></div>
+          <div class="player-name">Joey Simmons</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JacobAtwood.png" alt="Jacob Atwood" onerror="this.style.display='none';this.parentElement.textContent='JA'"></div>
+          <div class="player-name">Jacob Atwood</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/ShaCollier.png" alt="Sha Collier" onerror="this.style.display='none';this.parentElement.textContent='SC'"></div>
+          <div class="player-name">Sha Collier</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JakeHowDidThatGoBackwardsThomas.png" alt="Jake Thomas" onerror="this.style.display='none';this.parentElement.textContent='JT'"></div>
+          <div class="player-name">Jake Thomas</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/LukeTheBadboyTate.png" alt="Luke Tate" onerror="this.style.display='none';this.parentElement.textContent='LT'"></div>
+          <div class="player-name">Luke Tate</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/JD-TheCritic.png" alt="JD Schuyler" onerror="this.style.display='none';this.parentElement.textContent='JD'"></div>
+          <div class="player-name">JD Schuyler</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
+        <div class="player-card legend">
+          <div class="player-icon"><img src="BallBall Roster/LexiOnTheMoveHiland.png" alt="Lexi Hiland" onerror="this.style.display='none';this.parentElement.textContent='LH'"></div>
+          <div class="player-name">Lexi Hiland</div>
+          <div class="player-aka"></div>
+          <div class="player-desc"></div>
+        </div>
       </div>
 
       <div class="sub-header">The Current Active Roster</div>
@@ -1041,7 +1113,7 @@
   <!-- PART IX: SOUNDTRACK -->
   <div class="content-section">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part IX: The Official Soundtrack
     </div>
     <div class="section-body" style="text-align:center;">
@@ -1057,7 +1129,7 @@
   <!-- PART X: THE FUTURE -->
   <div class="content-section future-section" id="future">
     <div class="section-header">
-      <span class="star">&#9733;</span>
+      <span class="star"><img src="BallBallGIF-FolderIcon.png" alt=""></span>
       Part X: The Future of the Sport
     </div>
     <div class="section-body">
