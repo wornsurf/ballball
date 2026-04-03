@@ -598,22 +598,14 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: #ffd700 #1a0a3e;
+    align-items: center;
   }
-  .coverflow-track::-webkit-scrollbar {
-    height: 8px;
-  }
-  .coverflow-track::-webkit-scrollbar-track {
-    background: #1a0a3e;
-    border-radius: 4px;
-  }
-  .coverflow-track::-webkit-scrollbar-thumb {
-    background: #ffd700;
-    border-radius: 4px;
-  }
+  .coverflow-track::-webkit-scrollbar { height: 8px; }
+  .coverflow-track::-webkit-scrollbar-track { background: #1a0a3e; border-radius: 4px; }
+  .coverflow-track::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 4px; }
   .coverflow-item {
     flex: 0 0 auto;
-    width: 220px;
-    height: 220px;
+    width: 260px;
     border: 3px solid #ffd700;
     border-radius: 8px;
     overflow: hidden;
@@ -625,15 +617,18 @@
     position: relative;
   }
   .coverflow-item:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
     box-shadow: 0 6px 24px rgba(0,0,0,0.8), 0 0 16px rgba(255,215,0,0.4);
     z-index: 2;
   }
-  .coverflow-item img,
+  .coverflow-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
   .coverflow-item video {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
   }
   .coverflow-item .cf-label {
@@ -650,6 +645,34 @@
     letter-spacing: 1px;
     text-align: center;
     pointer-events: none;
+  }
+  /* Fullscreen overlay for expanded media */
+  .cf-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 10001;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .cf-overlay.active { display: flex; }
+  .cf-overlay img, .cf-overlay video {
+    max-width: 92vw;
+    max-height: 88vh;
+    border: 3px solid #ffd700;
+    border-radius: 8px;
+  }
+  .cf-overlay .cf-close {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    color: #ffd700;
+    font-size: 36px;
+    font-family: "Arial Black", sans-serif;
+    cursor: pointer;
+    text-shadow: 2px 2px 0 #000;
   }
   .coverflow-nav {
     text-align: center;
@@ -668,6 +691,122 @@
   }
   .coverflow-nav button:hover {
     background: linear-gradient(180deg, #ff3333, #cc0000);
+  }
+
+  /* ============ WINAMP-STYLE MP3 PLAYER ============ */
+  .winamp-player {
+    background: linear-gradient(180deg, #1a1a2e, #16213e, #0f3460);
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 15px;
+    box-shadow: 0 0 20px rgba(255,215,0,0.15), inset 0 0 40px rgba(0,0,0,0.5);
+  }
+  .winamp-display {
+    background: #0a0a0a;
+    border: 2px inset #333;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 12px;
+    text-align: center;
+    position: relative;
+  }
+  .winamp-display canvas {
+    width: 100%;
+    height: 50px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .winamp-title {
+    color: #00ff41;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    text-shadow: 0 0 8px rgba(0,255,65,0.6);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .winamp-time {
+    color: #00ff41;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    text-shadow: 0 0 6px rgba(0,255,65,0.4);
+    margin-top: 4px;
+  }
+  .winamp-controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .winamp-controls button {
+    background: linear-gradient(180deg, #333, #1a1a1a);
+    color: #ffd700;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: "Arial", sans-serif;
+  }
+  .winamp-controls button:hover { background: linear-gradient(180deg, #555, #333); }
+  .winamp-controls button.active { background: linear-gradient(180deg, #cc0000, #880000); border-color: #ffd700; }
+  .winamp-volume {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .winamp-volume label {
+    color: #ffd700;
+    font-family: "Arial Black", sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .winamp-volume input[type="range"] {
+    width: 120px;
+    accent-color: #ffd700;
+  }
+  .winamp-playlist {
+    background: #0a0a0a;
+    border: 2px inset #333;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ffd700 #0a0a0a;
+  }
+  .winamp-playlist::-webkit-scrollbar { width: 6px; }
+  .winamp-playlist::-webkit-scrollbar-track { background: #0a0a0a; }
+  .winamp-playlist::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 3px; }
+  .winamp-track {
+    padding: 5px 10px;
+    color: #00ff41;
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    cursor: pointer;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+  }
+  .winamp-track:hover { background: #1a1a2e; }
+  .winamp-track.playing { color: #ffd700; background: #1a0a3e; text-shadow: 0 0 6px rgba(255,215,0,0.5); }
+  .winamp-track .track-num { color: #555; margin-right: 8px; }
+  .nsfw-warning {
+    text-align: center;
+    margin-top: 10px;
+    padding: 8px;
+    color: #ff4444;
+    font-family: "Arial Black", sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: nsfwBlink 1.2s ease-in-out infinite;
+  }
+  @keyframes nsfwBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
   }
 
   /* ============ RESPONSIVE ============ */
@@ -1233,82 +1372,6 @@
     <div class="section-body">
       <p>A curated collection of legendary BallBall moments, memes, and cinematic edits preserved for future generations. Scroll through the archives. Click to expand.</p>
 
-      <div class="sub-header">Video Edits</div>
-      <div class="coverflow-track" id="cf-videos">
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BallBallBreaking_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Breaking</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BallBallKart_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">BallBall Kart</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/Matrix_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Matrix</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/WhatsABallBall_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">What's a BallBall</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BallBallNationals_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Nationals</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/NaomiBallBall_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Naomi BallBall</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/WreckingBallBall_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Wrecking BallBall</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/MONEY_1_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Money</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/DatsInbaluababble-TikTokEdit_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Inbaluababble</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BBEdit_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">BB Edit</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BabyBallBall_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Baby BallBall</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/8675309_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">8675309</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BallBall-AdJustin.gif_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Ad: Justin</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/BallBallisLife_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">BallBall is Life</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/SimplyAmazing_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Simply Amazing</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/NTWICM-TotalEclipseEdition_1.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">Total Eclipse Edition</div>
-        </div>
-        <div class="coverflow-item">
-          <video src="CoverFlow/MP4/One.mp4" muted playsinline preload="metadata"></video>
-          <div class="cf-label">One</div>
-        </div>
-      </div>
-      <div class="coverflow-nav">
-        <button onclick="document.getElementById('cf-videos').scrollBy({left:-460,behavior:'smooth'})">&larr;</button>
-        <button onclick="document.getElementById('cf-videos').scrollBy({left:460,behavior:'smooth'})">&rarr;</button>
-      </div>
-
       <div class="sub-header">GIFs & Images</div>
       <div class="coverflow-track" id="cf-images">
         <div class="coverflow-item">
@@ -1413,7 +1476,61 @@
         <button onclick="document.getElementById('cf-images').scrollBy({left:-460,behavior:'smooth'})">&larr;</button>
         <button onclick="document.getElementById('cf-images').scrollBy({left:460,behavior:'smooth'})">&rarr;</button>
       </div>
+
+      <div class="sub-header">Video Edits</div>
+      <div class="coverflow-track" id="cf-videos">
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BallBallBreaking_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Breaking</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BallBallKart_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">BallBall Kart</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/Matrix_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Matrix</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/WhatsABallBall_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">What's a BallBall</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BallBallNationals_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Nationals</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/NaomiBallBall_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Naomi BallBall</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/WreckingBallBall_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Wrecking BallBall</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/MONEY_1_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Money</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/DatsInbaluababble-TikTokEdit_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Inbaluababble</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BBEdit_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">BB Edit</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BabyBallBall_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Baby BallBall</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/8675309_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">8675309</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BallBall-AdJustin.gif_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Ad: Justin</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/BallBallisLife_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">BallBall is Life</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/SimplyAmazing_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Simply Amazing</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/NTWICM-TotalEclipseEdition_1.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">Total Eclipse Edition</div></div>
+        <div class="coverflow-item"><video src="CoverFlow/MP4/One.mp4" muted loop playsinline preload="metadata"></video><div class="cf-label">One</div></div>
+      </div>
+      <div class="coverflow-nav">
+        <button onclick="document.getElementById('cf-videos').scrollBy({left:-460,behavior:'smooth'})">&larr;</button>
+        <button onclick="document.getElementById('cf-videos').scrollBy({left:460,behavior:'smooth'})">&rarr;</button>
+      </div>
+
+      <div class="sub-header">The Wub Machine Archives</div>
+      <p>Before AI, before algorithms, before taste -- there was <strong>The Wub Machine</strong>. These audio relics are a lost format of "wubbed" voiceover flubs from the founding members of BallBall. Each track was lovingly processed through the legendary Wub Machine, transforming mundane studio chatter into certified bangers of questionable quality.</p>
+      <div class="nsfw-warning">&#9888; WARNING: NOT SUITABLE FOR BALLBALLERS WITH IMPRESSIONABLE EARS (NSFW) &#9888;</div>
+      <div class="winamp-player">
+        <div class="winamp-display">
+          <canvas id="winamp-visualizer"></canvas>
+          <div class="winamp-title" id="winamp-title">-- NO TRACK LOADED --</div>
+          <div class="winamp-time" id="winamp-time">0:00 / 0:00</div>
+        </div>
+        <div class="winamp-controls">
+          <button id="wa-prev" title="Previous">&#9198;</button>
+          <button id="wa-play" title="Play/Pause">&#9654;</button>
+          <button id="wa-stop" title="Stop">&#9632;</button>
+          <button id="wa-next" title="Next">&#9197;</button>
+          <button id="wa-shuffle" title="Shuffle">&#128256;</button>
+        </div>
+        <div class="winamp-volume">
+          <label>Vol</label>
+          <input type="range" id="wa-volume" min="0" max="1" step="0.05" value="0.7">
+        </div>
+        <div class="winamp-playlist" id="winamp-playlist"></div>
+      </div>
     </div>
+  </div>
+
+  <!-- Fullscreen overlay for expanded media -->
+  <div class="cf-overlay" id="cf-overlay">
+    <div class="cf-close">&times;</div>
+    <div id="cf-overlay-content"></div>
   </div>
 
   <!-- PART X: THE FUTURE -->
@@ -1432,7 +1549,7 @@
         <span style="font-size:0.65em; font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;">A DATE OF PROPHETIC HOPE</span>
       </div>
 
-      <p>On this day, new recruits <strong>Brandon Petite</strong> and <strong>Dan Oltizky</strong> will be brought into the fold. Furthermore, <strong>Allison Cates</strong> will be arriving in town to be officially inducted into the circle.</p>
+      <p>On this day, new recruits <strong>Brandon Petitt</strong> and <strong>Dan Olitzky</strong> will be brought into the fold. Furthermore, <strong>Allison Cates</strong> will be arriving in town to be officially inducted into the circle.</p>
 
       <div class="callout-box" style="border-color:#0033aa; background: linear-gradient(135deg, #001144, #002266); color: #ffd700;">
         <strong>Scouting Report:</strong> Management has their eyes set on a highly anticipated prospect: <strong>CJ Dinkins</strong>. An outlier hailing from the mountains of Utah, CJ is said to be 6-foot-plus in height and a majestical baller who is all but guaranteed to bring an entirely new, devastating skill move to the Studio Arena.
@@ -1482,20 +1599,174 @@
     });
   });
 
-  // CoverFlow video click-to-play/pause
+  // === VIDEO HOVER AUTOPLAY (muted preview) ===
   document.querySelectorAll('.coverflow-item video').forEach(function(vid) {
-    vid.addEventListener('click', function() {
-      if (vid.paused) {
-        vid.muted = false;
-        vid.controls = true;
-        vid.play();
-      } else {
-        vid.pause();
-        vid.muted = true;
-        vid.controls = false;
-      }
+    vid.parentElement.addEventListener('mouseenter', function() {
+      vid.muted = true;
+      vid.play().catch(function(){});
+    });
+    vid.parentElement.addEventListener('mouseleave', function() {
+      vid.pause();
+      vid.currentTime = 0;
     });
   });
+
+  // === CLICK TO EXPAND (fullscreen overlay) ===
+  var overlay = document.getElementById('cf-overlay');
+  var overlayContent = document.getElementById('cf-overlay-content');
+  document.querySelectorAll('.coverflow-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var img = item.querySelector('img');
+      var vid = item.querySelector('video');
+      overlayContent.innerHTML = '';
+      if (vid) {
+        var v = document.createElement('video');
+        v.src = vid.src;
+        v.controls = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.style.maxWidth = '92vw';
+        v.style.maxHeight = '88vh';
+        overlayContent.appendChild(v);
+      } else if (img) {
+        var i = document.createElement('img');
+        i.src = img.src;
+        overlayContent.appendChild(i);
+      }
+      overlay.classList.add('active');
+    });
+  });
+  overlay.addEventListener('click', function() {
+    overlay.classList.remove('active');
+    var v = overlayContent.querySelector('video');
+    if (v) v.pause();
+    overlayContent.innerHTML = '';
+  });
+
+  // === WINAMP-STYLE MP3 PLAYER ===
+  (function() {
+    var tracks = [
+      'Amazing-DrumBass-REMIX.mp3','AmazingTrap-REMIX.mp3','BestCry-REMIX.mp3',
+      'BounceThatAss-REMIX.mp3','CareBear-Remix.mp3','CumminTRAP.mp3',
+      'GetOnYourFeet-RemiXXX.mp3','Gloriaish.mp3','GranolaBallBall.mp3',
+      'GreatTalk-REMIX.mp3','HBW-DUBMIX.mp3','HBW-REMIX.mp3',
+      'HigherNow.mp3','HigherNow_REMIX.mp3','InAHurry-Remix2.mp3',
+      'IndianaIsDone-REMIX.mp3','InsaneSupplyChain.mp3','MattyBB-REMIX.mp3',
+      'OhCardboardBox-WUB.mp3','OhCardboardBox.mp3','PoundIt-REMIXXX-01.mp3',
+      'PringlesWubCrunch.mp3','Ranger-REMIX.mp3','RunningOnEmpty-BeatBoxMixxx.mp3',
+      'RunningOnEmpty-DUBmixxx.mp3','RyderBitch-DnB.mp3','RyderBitch-Dub.mp3',
+      'RyderBitch-Swing.mp3','RyderBitch-Trap.mp3','Shortz1.mp3',
+      'Sudano_SmashRemixxx.mp3','SupplyChain-REMIX.mp3','TunakTunakTunDUB.mp3',
+      'WelcomeToTheParty-RemiXXX-2.mp3','WelcomeToTheParty-RemiXXX-3.mp3',
+      'WelcomeToTheParty-RemiXXX.mp3','Wrinkles-REMIX.mp3','docblahblahtrap-REMIX.mp3',
+      'greatness.mp3','iWannaFuck_Wubbed.mp3','iWannaFuck_noWub.mp3',
+      'inbaluababble2-REMIX.mp3','knozone.mp3','ohfuck.mp3','ohfuck_noWub.mp3'
+    ];
+    var basePath = 'CoverFlow/MP3/';
+    var currentIndex = -1;
+    var shuffleOn = false;
+    var audioCtx, analyser, source, connected = false;
+    var audio = new Audio();
+    audio.volume = 0.7;
+    var titleEl = document.getElementById('winamp-title');
+    var timeEl = document.getElementById('winamp-time');
+    var canvas = document.getElementById('winamp-visualizer');
+    var ctx = canvas.getContext('2d');
+    var playlist = document.getElementById('winamp-playlist');
+
+    // Build playlist
+    tracks.forEach(function(t, i) {
+      var name = t.replace('.mp3','').replace(/-/g,' ').replace(/_/g,' ');
+      var div = document.createElement('div');
+      div.className = 'winamp-track';
+      div.innerHTML = '<span><span class="track-num">' + (i+1) + '.</span>' + name + '</span>';
+      div.addEventListener('click', function() { playTrack(i); });
+      playlist.appendChild(div);
+    });
+
+    function formatTime(s) {
+      if (isNaN(s)) return '0:00';
+      var m = Math.floor(s/60);
+      var sec = Math.floor(s%60);
+      return m + ':' + (sec<10?'0':'') + sec;
+    }
+
+    function playTrack(i) {
+      currentIndex = i;
+      audio.src = basePath + tracks[i];
+      audio.play();
+      var name = tracks[i].replace('.mp3','').replace(/-/g,' ').replace(/_/g,' ');
+      titleEl.textContent = name;
+      // Highlight in playlist
+      var items = playlist.querySelectorAll('.winamp-track');
+      items.forEach(function(el,idx) { el.classList.toggle('playing', idx===i); });
+      // Setup audio context for visualizer
+      if (!connected) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 64;
+        source = audioCtx.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        connected = true;
+        drawVisualizer();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function drawVisualizer() {
+      requestAnimationFrame(drawVisualizer);
+      var bufLen = analyser.frequencyBinCount;
+      var data = new Uint8Array(bufLen);
+      analyser.getByteFrequencyData(data);
+      canvas.width = canvas.offsetWidth;
+      canvas.height = 50;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var barW = (canvas.width / bufLen) * 0.8;
+      var gap = (canvas.width / bufLen) * 0.2;
+      for (var i = 0; i < bufLen; i++) {
+        var val = data[i] / 255;
+        var h = val * canvas.height;
+        var r = Math.floor(255 * val);
+        var g = Math.floor(215 * (1 - val * 0.5));
+        ctx.fillStyle = 'rgb(' + r + ',' + g + ',0)';
+        ctx.fillRect(i * (barW + gap), canvas.height - h, barW, h);
+      }
+    }
+
+    audio.addEventListener('timeupdate', function() {
+      timeEl.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+    });
+    audio.addEventListener('ended', function() {
+      if (shuffleOn) { playTrack(Math.floor(Math.random()*tracks.length)); }
+      else if (currentIndex < tracks.length - 1) { playTrack(currentIndex + 1); }
+    });
+
+    document.getElementById('wa-play').addEventListener('click', function() {
+      if (currentIndex < 0) { playTrack(0); return; }
+      if (audio.paused) { audio.play(); if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume(); }
+      else audio.pause();
+    });
+    document.getElementById('wa-stop').addEventListener('click', function() {
+      audio.pause(); audio.currentTime = 0;
+    });
+    document.getElementById('wa-prev').addEventListener('click', function() {
+      if (currentIndex > 0) playTrack(currentIndex - 1);
+      else playTrack(tracks.length - 1);
+    });
+    document.getElementById('wa-next').addEventListener('click', function() {
+      if (shuffleOn) playTrack(Math.floor(Math.random()*tracks.length));
+      else if (currentIndex < tracks.length - 1) playTrack(currentIndex + 1);
+      else playTrack(0);
+    });
+    document.getElementById('wa-shuffle').addEventListener('click', function() {
+      shuffleOn = !shuffleOn;
+      this.classList.toggle('active', shuffleOn);
+    });
+    document.getElementById('wa-volume').addEventListener('input', function() {
+      audio.volume = this.value;
+    });
+  })();
 
   // Fake visitor counter increment
   const counter = document.getElementById('visitorCount');
