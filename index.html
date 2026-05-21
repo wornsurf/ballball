@@ -816,6 +816,83 @@
     .section-body { padding: 12px 14px; }
     .court-ascii { font-size: 9px; }
   }
+  /* ============ PLAY VIRTUAL MODAL ============ */
+  .play-virtual-link {
+    background: linear-gradient(180deg, #00aa44, #007722) !important;
+    animation: playGlow 2s ease-in-out infinite;
+  }
+  .play-virtual-link:hover {
+    background: #ffd700 !important;
+    color: #007722 !important;
+  }
+  @keyframes playGlow {
+    0%, 100% { box-shadow: inset 0 0 0 transparent; }
+    50% { box-shadow: inset 0 0 12px rgba(255, 215, 0, 0.3); }
+  }
+  .game-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    animation: modalFadeIn 0.3s ease-out;
+  }
+  .game-modal-overlay.active {
+    display: flex;
+  }
+  @keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .game-modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    background: #111;
+    border: 4px solid #ffd700;
+    border-radius: 12px;
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.15), 0 20px 60px rgba(0,0,0,0.8);
+    overflow: hidden;
+  }
+  .game-modal-header {
+    background: linear-gradient(180deg, #0044cc, #002288);
+    color: #ffd700;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: 18px;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 #000;
+    border-bottom: 3px solid #ffd700;
+  }
+  .game-modal-close {
+    background: #cc0000;
+    color: #fff;
+    border: 2px solid #ffd700;
+    font-family: Impact, "Arial Black", sans-serif;
+    font-size: 14px;
+    padding: 4px 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+  .game-modal-close:hover {
+    background: #ff0000;
+  }
+  .game-modal-iframe {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: none;
+    display: block;
+    background: #090a0f;
+  }
 </style>
 </head>
 <body>
@@ -847,6 +924,7 @@
   <a href="#halloffame">Hall of Fame</a>
   <a href="#archives">Archives</a>
   <a href="#future">The Future</a>
+  <a href="#" id="play-virtual-nav" class="play-virtual-link">&#127918; Play Virtual</a>
 </nav>
 
 <!-- ===== MAIN CONTENT ===== -->
@@ -1797,6 +1875,56 @@
       counter.textContent = count.toString().padStart(7, '0');
     }, 5000);
   }
+</script>
+
+<!-- ===== PLAY VIRTUAL GAME MODAL ===== -->
+<div class="game-modal-overlay" id="game-modal">
+  <div class="game-modal-container">
+    <div class="game-modal-header">
+      <span>&#9733; BallBall Virtual Arena &#9733;</span>
+      <button class="game-modal-close" id="game-modal-close">&#10005; Close</button>
+    </div>
+    <iframe class="game-modal-iframe" id="game-iframe" src="about:blank" allow="autoplay"></iframe>
+  </div>
+</div>
+
+<script>
+  // Play Virtual modal logic
+  (function() {
+    var navBtn = document.getElementById('play-virtual-nav');
+    var modal = document.getElementById('game-modal');
+    var iframe = document.getElementById('game-iframe');
+    var closeBtn = document.getElementById('game-modal-close');
+
+    navBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      iframe.src = 'play.html';
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn.addEventListener('click', function() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      iframe.src = 'about:blank';
+    });
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        iframe.src = 'about:blank';
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        iframe.src = 'about:blank';
+      }
+    });
+  })();
 </script>
 
 </body>
