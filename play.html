@@ -150,6 +150,28 @@
             <p class="text-[11px] text-gray-500 mt-3 tracking-widest uppercase">
               Left/Right Arrows (or A/D) to Run &bull; Space to Kick Ball
             </p>
+            <button id="btn-view-leaderboard" class="retro-font text-[10px] text-emerald-400 hover:text-emerald-300 underline mt-6 tracking-widest uppercase cursor-pointer">
+              &#127942; View Leaderboard
+            </button>
+          </div>
+          <!-- Leaderboard-only View -->
+          <div id="leaderboard-menu" class="hidden text-center p-6 my-auto flex flex-col items-center animate-fade-in w-full max-w-md">
+            <h2 class="retro-font text-2xl md:text-3xl text-yellow-400 font-extrabold mb-5 drop-shadow-[0_3px_0_rgba(0,0,0,1)] uppercase tracking-wide">
+              Top Studio Records
+            </h2>
+            <div class="bg-black/85 border-2 border-gray-800 p-4 rounded-2xl mb-5 w-full shadow-2xl">
+              <div id="leaderboard-list-full" class="space-y-1.5 text-xs text-gray-300 max-h-72 overflow-y-auto pr-1">
+                <!-- Dynamic records rendered via JS -->
+              </div>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button id="btn-lb-play" class="retro-font text-xs bg-red-600 hover:bg-red-500 text-white font-extrabold px-8 py-3.5 rounded-xl border-4 border-white shadow-md transform active:scale-95 transition-all cursor-pointer">
+                PLAY NOW
+              </button>
+              <button id="btn-lb-back" class="retro-font text-[10px] bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold px-6 py-3.5 rounded-xl border-4 border-gray-900 shadow-md transform active:scale-95 transition-all cursor-pointer">
+                &#8592; BACK
+              </button>
+            </div>
           </div>
           <!-- Game Over Screen Overlay -->
           <div id="game-over-menu" class="hidden text-center p-6 my-auto flex flex-col items-center animate-fade-in w-full max-w-md">
@@ -178,7 +200,7 @@
               <!-- Arena Leaderboard Display -->
               <div class="border-t border-gray-800/80 pt-3">
                 <span class="retro-font text-[10px] text-gray-400 block mb-2 text-left">TOP STUDIO RECORDS:</span>
-                <div id="leaderboard-list" class="space-y-1.5 text-xs text-gray-300">
+                <div id="leaderboard-list" class="space-y-1.5 text-xs text-gray-300 max-h-44 overflow-y-auto pr-1">
                   <!-- Dynamic records rendered via JS -->
                 </div>
               </div>
@@ -430,15 +452,10 @@
       binId: '6a2168c5da38895dfe862f9b',
       key:   '$2a$10$cpEqCYnNwnvNa1rDqlh4TeLQWObh6w03aI6Ay9IKG43Ey5ehzUuI6'
     };
-    const LB_MAX = 5;
+    const LB_MAX = 20;          // how many records the board holds / displays
+    const SHARE_MAX = 5;        // how many records the copy/paste text includes
     const LB_REMOTE = !LB_CONFIG.binId.includes('PASTE_') && !LB_CONFIG.key.includes('PASTE_');
-    const DEFAULT_BOARD = [
-      { initials: "---", score: 0 },
-      { initials: "---", score: 0 },
-      { initials: "---", score: 0 },
-      { initials: "---", score: 0 },
-      { initials: "---", score: 0 }
-    ];
+    const DEFAULT_BOARD = Array.from({ length: LB_MAX }, () => ({ initials: "---", score: 0 }));
     let leaderboard = JSON.parse(localStorage.getItem('ballball_leaderboard')) || DEFAULT_BOARD.map(r => ({ ...r }));
 
     // Clean, sort, and pad an incoming board to exactly LB_MAX entries.
@@ -490,10 +507,9 @@
       if (leaderboard.length < LB_MAX) return true;
       return score > leaderboard[leaderboard.length - 1].score;
     }
-    function updateLeaderboardDisplay() {
-      const listContainer = document.getElementById('leaderboard-list');
+    function renderBoardRows(listContainer) {
+      if (!listContainer) return;
       listContainer.innerHTML = '';
-      leaderboard.sort((a, b) => b.score - a.score);
       leaderboard.forEach((record, index) => {
         const medalColor = index === 0 ? 'text-yellow-400' : index === 1 ? 'text-slate-300' : index === 2 ? 'text-amber-600' : 'text-gray-400';
         const item = document.createElement('div');
@@ -504,6 +520,11 @@
         `;
         listContainer.appendChild(item);
       });
+    }
+    function updateLeaderboardDisplay() {
+      leaderboard.sort((a, b) => b.score - a.score);
+      renderBoardRows(document.getElementById('leaderboard-list'));
+      renderBoardRows(document.getElementById('leaderboard-list-full'));
       const topRecord = leaderboard[0] ? leaderboard[0].score : 0;
       bestScoreDisplay.textContent = String(topRecord).padStart(2, '0');
     }
@@ -697,12 +718,15 @@
         // these keys while they're typing their initials into the record pane.
         const initialsPane = document.getElementById('initials-entry-pane');
         const enteringInitials = initialsPane && !initialsPane.classList.contains('hidden');
+        // Don't auto-start while the player is browsing the leaderboard view.
+        const lbMenu = document.getElementById('leaderboard-menu');
+        const viewingBoard = lbMenu && !lbMenu.classList.contains('hidden');
         // The game-over sequence reveals the menu after a short delay; until the
         // overlay is interactive, ignore start keys so a leftover kick-press can't
         // skip past the record-entry dialog and restart instantly.
         const overlay = document.getElementById('overlay-screen');
         const menuVisible = !overlay.classList.contains('pointer-events-none');
-        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Enter') && !enteringInitials && menuVisible) {
+        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Enter') && !enteringInitials && !viewingBoard && menuVisible) {
           e.preventDefault();
           startGame();
         }
@@ -818,7 +842,7 @@
       info.push('Juggles: ' + score);
       info.push('');
       info.push('Top Studio Records:');
-      leaderboard.slice(0, LB_MAX).forEach((r, i) => {
+      leaderboard.slice(0, SHARE_MAX).forEach((r, i) => {
         const medal = [':first_place_medal:', ':second_place_medal:', ':third_place_medal:'][i] || (i + 1) + '.';
         info.push(medal + ' ' + r.initials + ' — ' + String(r.score).padStart(2, '0'));
       });
@@ -859,6 +883,23 @@
     });
     document.getElementById('btn-start-game').addEventListener('click', startGame);
     document.getElementById('btn-restart-game').addEventListener('click', startGame);
+
+    // ===== Standalone leaderboard view (no playing required) =====
+    function showLeaderboardView() {
+      document.getElementById('start-menu').classList.add('hidden');
+      document.getElementById('game-over-menu').classList.add('hidden');
+      document.getElementById('leaderboard-menu').classList.remove('hidden');
+      updateLeaderboardDisplay();
+      fetchLeaderboard(); // refresh from the shared bin, then re-render
+    }
+    function hideLeaderboardView() {
+      document.getElementById('leaderboard-menu').classList.add('hidden');
+      document.getElementById('start-menu').classList.remove('hidden');
+    }
+    document.getElementById('btn-view-leaderboard').addEventListener('click', showLeaderboardView);
+    document.getElementById('btn-lb-back').addEventListener('click', hideLeaderboardView);
+    document.getElementById('btn-lb-play').addEventListener('click', startGame);
+
     function startGame() {
       soundSystem.init();
       soundSystem.playStartChime();
@@ -867,6 +908,7 @@
       setTimeout(() => {
         document.getElementById('start-menu').classList.add('hidden');
         document.getElementById('game-over-menu').classList.add('hidden');
+        document.getElementById('leaderboard-menu').classList.add('hidden');
         document.getElementById('initials-entry-pane').classList.add('hidden');
       }, 300);
       state.score = 0;
@@ -903,6 +945,7 @@
       updateLeaderboardDisplay();
       setTimeout(() => {
         document.getElementById('start-menu').classList.add('hidden');
+        document.getElementById('leaderboard-menu').classList.add('hidden');
         document.getElementById('game-over-menu').classList.remove('hidden');
         document.getElementById('overlay-screen').classList.remove('opacity-0', 'pointer-events-none');
         // When embedded in a short iframe (e.g. the modal on the main site) the
