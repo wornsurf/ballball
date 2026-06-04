@@ -104,7 +104,7 @@
 </head>
 <body class="flex flex-col min-h-screen items-center p-4 md:p-6 justify-between select-none bg-[#090a0f]">
   <!-- Header Section -->
-  <header class="w-full max-w-4xl flex items-center justify-between mb-3">
+  <header class="w-full max-w-5xl flex items-center justify-between mb-3">
     <div class="flex items-center gap-3">
       <div class="w-4 h-4 rounded-full bg-red-600 animate-pulse border-2 border-white"></div>
       <div>
@@ -118,7 +118,7 @@
     </div>
   </header>
   <!-- Main Game Display Frame -->
-  <main class="w-full max-w-3xl flex-grow flex flex-col justify-center my-2">
+  <main class="w-full max-w-5xl flex-grow flex flex-col justify-center my-2">
     <div class="game-frame w-full" id="screen-shaker">
 
       <!-- Interactive 16:9 Screen Viewport -->
@@ -131,7 +131,7 @@
         <!-- Floating UI popups overlay layer -->
         <div id="popup-layer" class="absolute inset-0 pointer-events-none z-20"></div>
         <!-- Overlays Screen (Menu / Game Over) -->
-        <div id="overlay-screen" class="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/55 backdrop-blur-xs transition-opacity duration-300">
+        <div id="overlay-screen" class="absolute inset-0 z-30 flex flex-col items-center justify-center overflow-y-auto py-6 bg-black/55 backdrop-blur-xs transition-opacity duration-300">
 
           <!-- Start / Title / Main Menu Screen -->
           <div id="start-menu" class="text-center p-4 flex flex-col items-center w-full max-w-lg select-none">
@@ -166,6 +166,7 @@
                 <input id="initials-input" type="text" maxlength="3" placeholder="AAA" class="retro-input w-24 py-1.5 px-2 rounded-lg text-lg tracking-wider" />
                 <button id="btn-submit-score" class="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-4 py-1.5 rounded-lg text-xs tracking-wider font-sans">SUBMIT</button>
               </div>
+              <button id="btn-skip-score" class="text-[10px] text-gray-400 hover:text-gray-200 underline mt-3 tracking-wider font-sans cursor-pointer">No thanks, skip</button>
             </div>
             <!-- Score Plate & Live Leaderboard -->
             <div class="bg-black/85 border-2 border-gray-800 p-4 rounded-2xl mb-5 w-full shadow-2xl">
@@ -770,9 +771,16 @@
       }
     });
     document.getElementById('btn-submit-score').addEventListener('click', submitScore);
+    document.getElementById('btn-skip-score').addEventListener('click', skipScore);
     document.getElementById('initials-input').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); submitScore(); }
+      if (e.key === 'Escape') { e.preventDefault(); skipScore(); }
     });
+
+    // Dismiss the record prompt without saving a score to the board.
+    function skipScore() {
+      document.getElementById('initials-entry-pane').classList.add('hidden');
+    }
     async function submitScore() {
       const submitBtn = document.getElementById('btn-submit-score');
       if (submitBtn.disabled) return;
@@ -795,17 +803,30 @@
       const score = state.score;
       const top = leaderboard[0] ? leaderboard[0].score : 0;
       const isRecord = score > 0 && score >= top;
-      const lines = [];
-      lines.push('🔴 BALLBALL DROPPED! 🔴');
-      lines.push(isRecord ? ('🏆 New Virtual Record: ' + score + '!') : ('Virtual Arena score: ' + score));
-      lines.push('');
-      lines.push('TOP STUDIO RECORDS:');
+
+      // Slack custom emoji shortcodes used in our workspace.
+      const SPIN = ':ballballspin:';
+      const title = isRecord ? 'New Virtual Record' : 'Virtual Arena Score';
+
+      // --- record information block ---
+      const info = [];
+      info.push('Juggles: ' + score);
+      info.push('');
+      info.push('Top Studio Records:');
       leaderboard.slice(0, LB_MAX).forEach((r, i) => {
-        const medal = ['🥇', '🥈', '🥉'][i] || (i + 1) + '.';
-        lines.push(medal + ' ' + r.initials + ' — ' + String(r.score).padStart(2, '0'));
+        const medal = [':first_place_medal:', ':second_place_medal:', ':third_place_medal:'][i] || (i + 1) + '.';
+        info.push(medal + ' ' + r.initials + ' — ' + String(r.score).padStart(2, '0'));
       });
+
+      const lines = [];
+      lines.push(':rotating_light: ' + title + ' :rotating_light:');
+      lines.push(SPIN + ' ');
       lines.push('');
-      lines.push('▶ Beat it at ballball.fyi');
+      lines.push(info.join('\n'));
+      lines.push('');
+      lines.push(SPIN + ' ');
+      lines.push('');
+      lines.push(':joystick: Set your record at ballball.fyi/play  ' + SPIN + ' ');
       return lines.join('\n');
     }
     document.getElementById('btn-share-score').addEventListener('click', async (e) => {
