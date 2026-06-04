@@ -144,7 +144,10 @@
             <button id="btn-start-game" class="retro-font text-xs md:text-sm bg-red-600 hover:bg-red-500 text-white font-bold px-10 py-5 rounded-2xl border-4 border-white shadow-xl transform active:scale-95 transition-all blink cursor-pointer">
               PRESS START
             </button>
-            <p class="text-[11px] text-gray-500 mt-8 tracking-widest uppercase">
+            <p class="text-[11px] text-yellow-400/90 mt-4 tracking-widest uppercase">
+              Tip: Press Space or &uarr; to start &mdash; hand's already on Kick!
+            </p>
+            <p class="text-[11px] text-gray-500 mt-3 tracking-widest uppercase">
               Left/Right Arrows (or A/D) to Run &bull; Space to Kick Ball
             </p>
           </div>
@@ -179,9 +182,15 @@
                 </div>
               </div>
             </div>
-            <button id="btn-restart-game" class="retro-font text-xs bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold px-8 py-3.5 rounded-xl border-4 border-black shadow-md transform active:scale-95 transition-all cursor-pointer">
-              REPLAY ROUND
-            </button>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button id="btn-restart-game" class="retro-font text-xs bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold px-8 py-3.5 rounded-xl border-4 border-black shadow-md transform active:scale-95 transition-all cursor-pointer">
+                REPLAY ROUND
+              </button>
+              <button id="btn-share-score" class="retro-font text-[10px] bg-gray-800 hover:bg-gray-700 text-emerald-400 font-bold px-6 py-3.5 rounded-xl border-4 border-gray-900 shadow-md transform active:scale-95 transition-all cursor-pointer">
+                &#128203; COPY RESULT
+              </button>
+            </div>
+            <p class="text-[10px] text-gray-500 mt-3 tracking-widest uppercase">Or press Space / &uarr; to replay</p>
           </div>
         </div>
       </div>
@@ -406,19 +415,78 @@
     if (isTouchDevice) {
       document.getElementById('mobile-controls').classList.remove('hidden');
     }
-    let leaderboard = JSON.parse(localStorage.getItem('ballball_leaderboard')) || [
+    /* ============================================================
+       SHARED LEADERBOARD (JSONBin.io)
+       ------------------------------------------------------------
+       One-time setup (see JSONBIN-SETUP.md):
+         1. Make a free account at https://jsonbin.io
+         2. Create a bin and copy its BIN ID
+         3. Copy your X-MASTER-KEY from the API Keys page
+         4. Paste both below, replacing the PASTE_... placeholders
+       Until that's done, scores just save locally in each browser.
+       ============================================================ */
+    const LB_CONFIG = {
+      binId: '6a2168c5da38895dfe862f9b',
+      key:   '$2a$10$cpEqCYnNwnvNa1rDqlh4TeLQWObh6w03aI6Ay9IKG43Ey5ehzUuI6'
+    };
+    const LB_MAX = 5;
+    const LB_REMOTE = !LB_CONFIG.binId.includes('PASTE_') && !LB_CONFIG.key.includes('PASTE_');
+    const DEFAULT_BOARD = [
       { initials: "---", score: 0 },
       { initials: "---", score: 0 },
       { initials: "---", score: 0 },
       { initials: "---", score: 0 },
       { initials: "---", score: 0 }
     ];
-    function saveLeaderboard() {
+    let leaderboard = JSON.parse(localStorage.getItem('ballball_leaderboard')) || DEFAULT_BOARD.map(r => ({ ...r }));
+
+    // Clean, sort, and pad an incoming board to exactly LB_MAX entries.
+    function normalizeBoard(arr) {
+      if (!Array.isArray(arr)) return DEFAULT_BOARD.map(r => ({ ...r }));
+      const board = arr
+        .filter(r => r && typeof r.score === 'number')
+        .map(r => ({ initials: String(r.initials || '---').toUpperCase().substring(0, 3), score: r.score }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, LB_MAX);
+      while (board.length < LB_MAX) board.push({ initials: "---", score: 0 });
+      return board;
+    }
+
+    // Pull the shared board from JSONBin. Silently keeps the local copy on failure.
+    async function fetchLeaderboard() {
+      if (!LB_REMOTE) return;
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${LB_CONFIG.binId}/latest`, {
+          headers: { 'X-Master-Key': LB_CONFIG.key, 'X-Bin-Meta': 'false' }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        leaderboard = normalizeBoard(data.record || data);
+        localStorage.setItem('ballball_leaderboard', JSON.stringify(leaderboard));
+        updateLeaderboardDisplay();
+      } catch (err) {
+        console.warn('BallBall: using local leaderboard (' + err.message + ')');
+      }
+    }
+
+    // Save the board locally, and push to the shared bin when configured.
+    async function saveLeaderboard() {
+      leaderboard = normalizeBoard(leaderboard);
       localStorage.setItem('ballball_leaderboard', JSON.stringify(leaderboard));
+      if (!LB_REMOTE) return;
+      try {
+        await fetch(`https://api.jsonbin.io/v3/b/${LB_CONFIG.binId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'X-Master-Key': LB_CONFIG.key },
+          body: JSON.stringify(leaderboard)
+        });
+      } catch (err) {
+        console.warn('BallBall: could not push to shared leaderboard (' + err.message + ')');
+      }
     }
     function checkLeaderboardQualify(score) {
       if (score <= 0) return false;
-      if (leaderboard.length < 5) return true;
+      if (leaderboard.length < LB_MAX) return true;
       return score > leaderboard[leaderboard.length - 1].score;
     }
     function updateLeaderboardDisplay() {
@@ -439,6 +507,7 @@
       bestScoreDisplay.textContent = String(topRecord).padStart(2, '0');
     }
     updateLeaderboardDisplay();
+    fetchLeaderboard();
     const state = {
       status: 'START',
       score: 0,
@@ -621,7 +690,18 @@
     };
     const keys = { left: false, right: false };
     window.addEventListener('keydown', (e) => {
-      if (state.status !== 'PLAYING') return;
+      if (state.status !== 'PLAYING') {
+        // On the title / game-over screens, let Space, Up, or Enter start the
+        // round so the player's hand is already on the kick key. Don't hijack
+        // these keys while they're typing their initials into the record pane.
+        const initialsPane = document.getElementById('initials-entry-pane');
+        const enteringInitials = initialsPane && !initialsPane.classList.contains('hidden');
+        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Enter') && !enteringInitials) {
+          e.preventDefault();
+          startGame();
+        }
+        return;
+      }
       if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
         keys.left = true;
         player.targetVx = -PHYSICS.maxSpeed;
@@ -689,16 +769,67 @@
         }
       }
     });
-    document.getElementById('btn-submit-score').addEventListener('click', () => {
+    document.getElementById('btn-submit-score').addEventListener('click', submitScore);
+    document.getElementById('initials-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); submitScore(); }
+    });
+    async function submitScore() {
+      const submitBtn = document.getElementById('btn-submit-score');
+      if (submitBtn.disabled) return;
+      submitBtn.disabled = true;
       const initialsIn = document.getElementById('initials-input');
-      const initials = (initialsIn.value || "AAA").toUpperCase().substring(0, 3);
+      const initials = (initialsIn.value || "AAA").toUpperCase().substring(0, 3) || "AAA";
+      // Pull the latest shared board first so we merge instead of overwrite.
+      await fetchLeaderboard();
       leaderboard.push({ initials, score: state.score });
-      leaderboard.sort((a, b) => b.score - a.score);
-      leaderboard = leaderboard.slice(0, 5);
-      saveLeaderboard();
+      leaderboard = normalizeBoard(leaderboard);
+      await saveLeaderboard();
       updateLeaderboardDisplay();
       document.getElementById('initials-entry-pane').classList.add('hidden');
       soundSystem.playStartChime();
+      submitBtn.disabled = false;
+    }
+
+    // ===== Share: build Slack-style result text and copy to clipboard =====
+    function buildShareText() {
+      const score = state.score;
+      const top = leaderboard[0] ? leaderboard[0].score : 0;
+      const isRecord = score > 0 && score >= top;
+      const lines = [];
+      lines.push('🔴 BALLBALL DROPPED! 🔴');
+      lines.push(isRecord ? ('🏆 New Virtual Record: ' + score + '!') : ('Virtual Arena score: ' + score));
+      lines.push('');
+      lines.push('TOP STUDIO RECORDS:');
+      leaderboard.slice(0, LB_MAX).forEach((r, i) => {
+        const medal = ['🥇', '🥈', '🥉'][i] || (i + 1) + '.';
+        lines.push(medal + ' ' + r.initials + ' — ' + String(r.score).padStart(2, '0'));
+      });
+      lines.push('');
+      lines.push('▶ Beat it at ballball.fyi');
+      return lines.join('\n');
+    }
+    document.getElementById('btn-share-score').addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      const text = buildShareText();
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch (err) {
+        // Fallback for older browsers / non-secure contexts.
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+        document.body.removeChild(ta);
+      }
+      const original = btn.innerHTML;
+      btn.innerHTML = ok ? '✅ COPIED!' : '⚠ COPY FAILED';
+      soundSystem.playStartChime();
+      setTimeout(() => { btn.innerHTML = original; }, 1800);
     });
     document.getElementById('btn-start-game').addEventListener('click', startGame);
     document.getElementById('btn-restart-game').addEventListener('click', startGame);
@@ -721,7 +852,7 @@
       moveTracker.reset();
       popupLayer.innerHTML = '';
     }
-    function triggerGameOver() {
+    async function triggerGameOver() {
       state.status = 'GAMEOVER';
       soundSystem.stopBgm();
       soundSystem.playFailSound();
@@ -733,6 +864,8 @@
       }
       finalScore.textContent = String(state.score).padStart(2, '0');
       gameOverSummary.textContent = summaryText;
+      // Refresh the shared board so the qualify check uses everyone's latest scores.
+      await fetchLeaderboard();
       if (state.score > 0 && checkLeaderboardQualify(state.score)) {
         document.getElementById('initials-entry-pane').classList.remove('hidden');
         document.getElementById('initials-input').value = "";
