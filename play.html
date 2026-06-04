@@ -122,12 +122,12 @@
     <div class="game-frame w-full" id="screen-shaker">
 
       <!-- Interactive 16:9 Screen Viewport -->
-      <div class="screen-container w-full relative aspect-[16/9]" id="screen-viewport">
+      <div class="screen-container w-full relative aspect-[4/3]" id="screen-viewport">
 
         <!-- Live feedback light flash overlay -->
         <div id="flash-effect" class="studio-flash"></div>
         <!-- Render Canvas (Stage & Physical Simulation) -->
-        <canvas id="gameCanvas" class="w-full h-full block bg-[#0a0a0c]"></canvas>
+        <canvas id="gameCanvas" class="w-full h-full block object-contain bg-[#0a0a0c]"></canvas>
         <!-- Floating UI popups overlay layer -->
         <div id="popup-layer" class="absolute inset-0 pointer-events-none z-20"></div>
         <!-- Overlays Screen (Menu / Game Over) -->
@@ -966,13 +966,16 @@
     }
     function createFloatingText(x, y, text, color) {
       const rect = canvas.getBoundingClientRect();
-      const scaleX = rect.width / VIRTUAL_WIDTH;
-      const scaleY = rect.height / VIRTUAL_HEIGHT;
+      // Canvas renders 16:9 letterboxed (object-contain) inside a taller box,
+      // so map virtual coords onto the centered content area, not the full element.
+      const scale = Math.min(rect.width / VIRTUAL_WIDTH, rect.height / VIRTUAL_HEIGHT);
+      const offsetX = (rect.width - VIRTUAL_WIDTH * scale) / 2;
+      const offsetY = (rect.height - VIRTUAL_HEIGHT * scale) / 2;
       const div = document.createElement('div');
       div.className = 'score-popup';
       div.textContent = text;
-      div.style.left = (x * scaleX) + 'px';
-      div.style.top = (y * scaleY) + 'px';
+      div.style.left = (offsetX + x * scale) + 'px';
+      div.style.top = (offsetY + y * scale) + 'px';
       div.style.color = color;
       popupLayer.appendChild(div);
       setTimeout(() => { div.remove(); }, 850);
