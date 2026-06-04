@@ -697,7 +697,12 @@
         // these keys while they're typing their initials into the record pane.
         const initialsPane = document.getElementById('initials-entry-pane');
         const enteringInitials = initialsPane && !initialsPane.classList.contains('hidden');
-        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Enter') && !enteringInitials) {
+        // The game-over sequence reveals the menu after a short delay; until the
+        // overlay is interactive, ignore start keys so a leftover kick-press can't
+        // skip past the record-entry dialog and restart instantly.
+        const overlay = document.getElementById('overlay-screen');
+        const menuVisible = !overlay.classList.contains('pointer-events-none');
+        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Enter') && !enteringInitials && menuVisible) {
           e.preventDefault();
           startGame();
         }
