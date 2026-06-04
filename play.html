@@ -905,8 +905,15 @@
         document.getElementById('start-menu').classList.add('hidden');
         document.getElementById('game-over-menu').classList.remove('hidden');
         document.getElementById('overlay-screen').classList.remove('opacity-0', 'pointer-events-none');
+        // When embedded in a short iframe (e.g. the modal on the main site) the
+        // game page is taller than the viewport, so the centered menu can sit
+        // below the fold. Scroll it into view so the record-entry dialog shows.
+        const scrollTarget = qualifies
+          ? document.getElementById('initials-entry-pane')
+          : document.getElementById('game-over-menu');
+        try { scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
         // Focus only once the menu is actually visible, otherwise focus is dropped.
-        if (qualifies) { try { initialsInput.focus(); } catch (e) {} }
+        if (qualifies) { try { initialsInput.focus({ preventScroll: true }); } catch (e) {} }
       }, 800);
     }
     function triggerKickAction() {
